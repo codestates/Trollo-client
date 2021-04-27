@@ -1,7 +1,7 @@
 ---
 name: Task Card
 about: Task card 생성시 사용되는 templete입니다
-title: ''
+title: "[Client] [마일스톤] - 기능 설명"
 labels: ''
 assignees: ''
 
