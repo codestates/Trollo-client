@@ -8,6 +8,7 @@ import Board from './Pages/Board/index';
 // import Workspace from './Pages/Workspace/index';
 import Content from './Pages/Content/index';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import Worksapce from './pages/Workspace';
 
 const App = (): JSX.Element => {
 	return (
@@ -18,8 +19,8 @@ const App = (): JSX.Element => {
 				<Route path="/Login" component={Login} />
 				<Route path="/Register" component={Register} />
 				<Route exact path="/Board/:Board" component={Board} />
-				{/* <Route path="/Workspace/:Workspace" component={Workspace} /> */}
 				<Route path="/Board/Board/:id" component={Content} />
+				<Route path="/workspace" component={Worksapce} />
 			</Switch>
 		</ThemeProvider>
 	);
