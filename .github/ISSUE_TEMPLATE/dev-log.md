@@ -1,6 +1,6 @@
 ---
 name: Dev Log
-about: Suggest an idea for this project
+about: 프로젝트 기간 동안의 기록을 작성하는 template입니다.
 title: "[Dev Log] 이름 / 2021-00-00"
 labels: ''
 assignees: ''
