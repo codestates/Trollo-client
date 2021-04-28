@@ -3,12 +3,12 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { TaskListData } from '../DragAndDropArea';
 import { Container, TaskItemContainer } from './styles';
 
-interface TaskItemProps {
+interface Props {
 	taskList: TaskListData;
 	index: number;
 }
 
-const TaskItem = ({ taskList, index }: TaskItemProps): JSX.Element => {
+const TaskItem = ({ taskList, index }: Props): JSX.Element => {
 	return (
 		<Droppable droppableId={`TaskItem-${index}`} type="TaskItem">
 			{provided => (
