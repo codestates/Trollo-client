@@ -1,18 +1,12 @@
 import React, { ReactNode } from 'react';
-import { Column, Row } from './styles';
+import { Row } from './styles';
 
 interface Props {
-    children: ReactNode
+	children: ReactNode;
 }
 
-const TableRow = ({ children }: Props) => {
-    return (
-        <Row>
-            {
-                children
-            }
-        </Row>
-    )
+const TableRow = ({ children }: Props): JSX.Element => {
+	return <Row>{children}</Row>;
 };
 
 export default TableRow;

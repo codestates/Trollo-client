@@ -2,17 +2,11 @@ import React, { ReactNode } from 'react';
 import { Column } from './styles';
 
 interface Props {
-    children: ReactNode
+	children: ReactNode;
 }
 
-const TableColumn = ({ children }: Props) => {
-    return (
-        <Column>
-            {
-                children
-            }
-        </Column>
-    )
+const TableColumn = ({ children }: Props): JSX.Element => {
+	return <Column>{children}</Column>;
 };
 
 export default TableColumn;

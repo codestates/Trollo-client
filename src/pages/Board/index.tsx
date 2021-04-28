@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../../components/Common/Navbar';
 import Test from '../../images/test.png';
 import Carousel from '../../components/Board/Carousel';
 import Table from '../../components/Board/Table';
 
 const Board = (): JSX.Element => {
-
-    return (
-        <>
-            <Navbar />
-            <Carousel images={Test}/>
-            <Table />
-        </>
-    )
+	return (
+		<>
+			<Navbar />
+			<Carousel images={Test} />
+			<Table />
+		</>
+	);
 };
 
 export default Board;

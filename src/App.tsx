@@ -2,11 +2,10 @@ import React from 'react';
 import { Global, ThemeProvider } from '@emotion/react';
 import GlobalStyle from './styles/GlobalStyel';
 import Theme from './styles/Theme';
-import Login from './Pages/LogIn/LogIn';
-import Register from './Pages/LogIn/Register';
-import Board from './Pages/Board/index';
-// import Workspace from './Pages/Workspace/index';
-import Content from './Pages/Content/index';
+import Login from './pages/LogIn/LogIn';
+import Register from './pages/LogIn/Register';
+import Board from './pages/Board/index';
+import Content from './pages/Content/index';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Worksapce from './pages/Workspace';
 
