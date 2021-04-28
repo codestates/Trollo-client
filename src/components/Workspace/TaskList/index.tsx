@@ -4,12 +4,12 @@ import { TaskListData } from '../DragAndDropArea';
 import TaskItem from '../TaskItem';
 import { Container, Title } from './styles';
 
-interface TaskListProps {
+interface Props {
 	taskList: TaskListData;
 	index: number;
 }
 
-const TaskList = ({ taskList, index }: TaskListProps): JSX.Element => {
+const TaskList = ({ taskList, index }: Props): JSX.Element => {
 	return (
 		<Draggable draggableId={taskList.id} index={index}>
 			{provided => (
