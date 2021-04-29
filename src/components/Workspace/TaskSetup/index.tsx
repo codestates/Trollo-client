@@ -16,26 +16,11 @@ const TaskSetup = ({
 	setShowTaskSetup,
 	setTaskData,
 }: Props): JSX.Element => {
-	const [title, onChangeTitle] = useInput('');
-	const [description, onChangeDescription] = useInput('');
-	const [status, onChangeStatus] = useInput('');
+	const [title, onChangeTitle] = useInput<string>('');
+	const [description, onChangeDescription] = useInput<string>('');
+	const [status, onChangeStatus] = useInput<string>('');
 
 	const onCloseModal = () => {
-		const id = `TaskItem-${Object.keys(taskData.taskItem).length + 1}`;
-		const test = {
-			[id]: {
-				id,
-				title,
-				description,
-				status,
-				start_date: '0',
-				end_date: '0',
-				checkList: [{ content: '기본 타입 완벽 이해', checked: false }],
-			},
-		};
-
-		taskData.taskList[taskListIndex].tasks.push(id);
-		setTaskData({ ...taskData, taskItem: { ...taskData.taskItem, ...test } });
 		setShowTaskSetup(false);
 	};
 

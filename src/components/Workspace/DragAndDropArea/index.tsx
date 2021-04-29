@@ -21,7 +21,6 @@ export interface TaskItemData {
 		id: string;
 		title: string;
 		description: string;
-		status: string;
 		start_date: string;
 		end_date: string;
 		checkList: { content: string; checked: boolean }[];
@@ -48,16 +47,17 @@ const DragAndDropArea = (): JSX.Element => {
 				id: 'taskItem-1',
 				title: 'Learn Typescript',
 				description: '타입스크립트 공부하기',
-				status: 'Doing',
 				start_date: '0',
 				end_date: '0',
-				checkList: [{ content: '기본 타입 완벽 이해', checked: false }],
+				checkList: [
+					{ content: '기본 타입 완벽 이해', checked: false },
+					{ content: '기본 타입 완벽 이해', checked: false },
+				],
 			},
 			'taskItem-2': {
 				id: 'taskItem-2',
 				title: 'Trollo Project',
 				description: '트롤로 만들기',
-				status: 'To do',
 				start_date: '0',
 				end_date: '0',
 				checkList: [],
@@ -66,29 +66,26 @@ const DragAndDropArea = (): JSX.Element => {
 				id: 'taskItem-3',
 				title: 'Reciper Project',
 				description: '레시퍼 만들기',
-				status: 'Done',
 				start_date: '0',
 				end_date: '0',
-				checkList: [],
+				checkList: [{ content: '기본 타입 완벽 이해', checked: false }],
 			},
 		},
 	});
 	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
-	const [shwoTaskSetup, setShowTaskSetup] = useState<boolean>(false);
-	const [taskListIndex, setTaskListIndex] = useState<number>(0);
+	const [showTaskSetup, setShowTaskSetup] = useState<boolean>(false);
 	const [title, onAddTitle, setTitle] = useInput<string>('');
 
 	const onDragEnd = useCallback(
 		(result: DropResult) => {
-			console.log(result);
 			const { type, source, destination } = result;
 			const { taskList, taskItem } = taskData;
+
 			if (!destination) {
 				return;
 			}
 
 			if (type === 'TaskList') {
-				console.log(taskList);
 				const targetData = taskList.splice(source.index, 1);
 				taskData.taskList.splice(destination.index, 0, ...targetData);
 			}
@@ -137,8 +134,7 @@ const DragAndDropArea = (): JSX.Element => {
 										taskList={list}
 										index={index}
 										taskData={taskData}
-										setShowTaskSetup={setShowTaskSetup}
-										setTaskListIndex={setTaskListIndex}
+										setTaskData={setTaskData}
 									/>
 								))}
 								{provided.placeholder}
@@ -162,7 +158,7 @@ const DragAndDropArea = (): JSX.Element => {
 				</Droppable>
 			</DragDropContext>
 
-			{shwoTaskSetup && (
+			{/* {shwoTaskSetup && (
 				<>
 					<TaskSetup
 						taskData={taskData}
@@ -171,7 +167,7 @@ const DragAndDropArea = (): JSX.Element => {
 						setShowTaskSetup={setShowTaskSetup}
 					/>
 				</>
-			)}
+			)} */}
 		</WorksapceContainer>
 	);
 };

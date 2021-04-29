@@ -4,6 +4,7 @@ export const TaskSetupContainer = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 1000;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
@@ -14,6 +15,7 @@ export const TaskSetupModal = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	z-index: 1010;
 	width: 500px;
 	height: 600px;
 	background: #fff;

@@ -4,7 +4,7 @@ export const WorksapceContainer = styled.div`
 	width: 100%;
 	height: calc(100vh - 56px);
 	padding: 40px;
-	margin-top: 56px;
+	padding-top: 96px;
 `;
 
 export const DragAndDropContainer = styled.div`

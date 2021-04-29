@@ -13,20 +13,20 @@ export const Title = styled.div`
 	align-items: center;
 	height: 50px;
 	& > p {
+		font-family: NanumSquareB;
 		font-size: 18px;
 	}
 `;
 
-export const AddTaskBtn = styled.div`
-	cursor: pointer;
+export const AddTaskInput = styled.input`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 	height: 40px;
-	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 0 10px;
+	font-family: NanumSquareB;
 	font-size: 17px;
-
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.15);
-	}
+	border: 2px solid #ddd;
 `;
