@@ -9,6 +9,7 @@ import {
 import useInput from '../../../hooks/useInput';
 
 import TaskList from '../TaskList';
+import TaskSetup from '../TaskSetup';
 
 export interface TaskListData {
 	id: string;
@@ -19,7 +20,7 @@ export interface TaskItemData {
 	[index: string]: {
 		id: string;
 		title: string;
-		content: string;
+		description: string;
 		status: string;
 		start_date: string;
 		end_date: string;
@@ -46,7 +47,7 @@ const DragAndDropArea = (): JSX.Element => {
 			'taskItem-1': {
 				id: 'taskItem-1',
 				title: 'Learn Typescript',
-				content: '타입스크립트 공부하기',
+				description: '타입스크립트 공부하기',
 				status: 'Doing',
 				start_date: '0',
 				end_date: '0',
@@ -55,7 +56,7 @@ const DragAndDropArea = (): JSX.Element => {
 			'taskItem-2': {
 				id: 'taskItem-2',
 				title: 'Trollo Project',
-				content: '트롤로 만들기',
+				description: '트롤로 만들기',
 				status: 'To do',
 				start_date: '0',
 				end_date: '0',
@@ -64,7 +65,7 @@ const DragAndDropArea = (): JSX.Element => {
 			'taskItem-3': {
 				id: 'taskItem-3',
 				title: 'Reciper Project',
-				content: '레시퍼 만들기',
+				description: '레시퍼 만들기',
 				status: 'Done',
 				start_date: '0',
 				end_date: '0',
@@ -73,23 +74,39 @@ const DragAndDropArea = (): JSX.Element => {
 		},
 	});
 	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
+	const [shwoTaskSetup, setShowTaskSetup] = useState<boolean>(false);
+	const [taskListIndex, setTaskListIndex] = useState<number>(0);
 	const [title, onAddTitle, setTitle] = useInput<string>('');
 
-	const onDragEnd = useCallback((result: DropResult) => {
-		console.log(result);
-		const { type, source, destination } = result;
-		if (!destination) {
-			return;
-		}
+	const onDragEnd = useCallback(
+		(result: DropResult) => {
+			console.log(result);
+			const { type, source, destination } = result;
+			const { taskList, taskItem } = taskData;
+			if (!destination) {
+				return;
+			}
 
-		if (type === 'TaskList') {
-			return;
-		}
+			if (type === 'TaskList') {
+				console.log(taskList);
+				const targetData = taskList.splice(source.index, 1);
+				taskData.taskList.splice(destination.index, 0, ...targetData);
+			}
 
-		if (type === 'TaskItem') {
-			return;
-		}
-	}, []);
+			if (type === 'TaskItem') {
+				const currentIndex = source.index;
+				const targetIndex = destination.index;
+				const currentListIndex = Number(source.droppableId.split('-')[1]);
+				const targetListIndex = Number(destination.droppableId.split('-')[1]);
+				const currentTasks: string[] = taskList[currentListIndex].tasks;
+				const targetTasks: string[] = taskList[targetListIndex].tasks;
+
+				const current = currentTasks.splice(currentIndex, 1);
+				targetTasks.splice(targetIndex, 0, ...current);
+			}
+		},
+		[taskData],
+	);
 
 	const addTaskListData = useCallback((): void => {
 		const taskListFrame = {
@@ -120,7 +137,8 @@ const DragAndDropArea = (): JSX.Element => {
 										taskList={list}
 										index={index}
 										taskData={taskData}
-										setTaskData={setTaskData}
+										setShowTaskSetup={setShowTaskSetup}
+										setTaskListIndex={setTaskListIndex}
 									/>
 								))}
 								{provided.placeholder}
@@ -143,6 +161,17 @@ const DragAndDropArea = (): JSX.Element => {
 					)}
 				</Droppable>
 			</DragDropContext>
+
+			{shwoTaskSetup && (
+				<>
+					<TaskSetup
+						taskData={taskData}
+						setTaskData={setTaskData}
+						taskListIndex={taskListIndex}
+						setShowTaskSetup={setShowTaskSetup}
+					/>
+				</>
+			)}
 		</WorksapceContainer>
 	);
 };

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { TaskListData } from '../DragAndDropArea';
+import { TaskListData, TaskData } from '../DragAndDropArea';
 import { Container, TaskItemContainer } from './styles';
 
 interface Props {
 	taskList: TaskListData;
 	index: number;
+	taskData: TaskData;
 }
 
-const TaskItem = ({ taskList, index }: Props): JSX.Element => {
+const TaskItem = ({ taskList, index, taskData }: Props): JSX.Element => {
 	return (
 		<Droppable droppableId={`TaskItem-${index}`} type="TaskItem">
 			{provided => (
@@ -21,7 +22,7 @@ const TaskItem = ({ taskList, index }: Props): JSX.Element => {
 									{...provided.dragHandleProps}
 									{...provided.draggableProps}
 								>
-									{task}
+									{taskData.taskItem[task].title}
 								</TaskItemContainer>
 							)}
 						</Draggable>
