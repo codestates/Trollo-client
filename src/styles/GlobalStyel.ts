@@ -7,6 +7,10 @@ const GlobalStyle = css`
 		box-sizing: border-box;
 	}
 
+	body {
+		font-family: NanumSquareR;
+	}
+
 	a {
 		text-decoration: none;
 	}
