@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import {
+	AddTaskListBtn,
+	AddTaskListTitleInput,
+	DragAndDropContainer,
+	WorksapceContainer,
+} from './styles';
+import useInput from '../../../hooks/useInput';
+
 import TaskList from '../TaskList';
-import { DragAndDropContainer, WorksapceContainer } from './styles';
 
 export interface TaskListData {
 	id: string;
@@ -19,7 +26,7 @@ export interface TaskItemData {
 		checkList: { content: string; checked: boolean }[];
 	};
 }
-interface TaskData {
+export interface TaskData {
 	taskList: TaskListData[];
 	taskItem: TaskItemData;
 }
@@ -65,8 +72,10 @@ const DragAndDropArea = (): JSX.Element => {
 			},
 		},
 	});
+	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
+	const [title, onAddTitle, setTitle] = useInput<string>('');
 
-	const onDragEnd = (result: DropResult) => {
+	const onDragEnd = useCallback((result: DropResult) => {
 		console.log(result);
 		const { type, source, destination } = result;
 		if (!destination) {
@@ -80,44 +89,62 @@ const DragAndDropArea = (): JSX.Element => {
 		if (type === 'TaskItem') {
 			return;
 		}
-	};
+	}, []);
+
+	const addTaskListData = useCallback((): void => {
+		const taskListFrame = {
+			id: `TaskList-${taskData.taskList.length + 1}`,
+			title,
+			tasks: [],
+		};
+
+		setTaskData({
+			...taskData,
+			taskList: [...taskData.taskList, taskListFrame],
+		});
+
+		setTitle('');
+		setAddBtnChangeForm(false);
+	}, [title]);
 
 	return (
 		<WorksapceContainer>
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="TaskList" type="TaskList" direction="horizontal">
 					{provided => (
-						<DragAndDropContainer ref={provided.innerRef}>
-							{taskData.taskList.map((list, index) => (
-								<TaskList key={list.id} taskList={list} index={index} />
-							))}
-							{provided.placeholder}
-						</DragAndDropContainer>
+						<div style={{ display: 'flex' }}>
+							<DragAndDropContainer ref={provided.innerRef}>
+								{taskData.taskList.map((list, index) => (
+									<TaskList
+										key={list.id}
+										taskList={list}
+										index={index}
+										taskData={taskData}
+										setTaskData={setTaskData}
+									/>
+								))}
+								{provided.placeholder}
+							</DragAndDropContainer>
+
+							{addBtnChangeForm ? (
+								<AddTaskListTitleInput
+									placeholder="Title"
+									value={title}
+									onChange={onAddTitle}
+									onKeyPress={e => e.key === 'Enter' && addTaskListData()}
+									onBlur={addTaskListData}
+								/>
+							) : (
+								<AddTaskListBtn onClick={() => setAddBtnChangeForm(true)}>
+									+ Add TaskList
+								</AddTaskListBtn>
+							)}
+						</div>
 					)}
 				</Droppable>
 			</DragDropContext>
 		</WorksapceContainer>
 	);
 };
-
-/*
-이걸 어떻게 원본을 유지하나??
-{
-	taskList: [
-		{
-			id: 'TaskList-1',
-			content: 'To do',
-			tasks: ['taskItem-1', 'taskItem-3'],
-		},
-		{ id: 'TaskList-2', content: 'In Progress', tasks: ['taskItem-2'] },
-		{ id: 'TaskList-3', content: 'Done', tasks: [] },
-	],
-	task: {
-		'taskItem-1': { id: 'taskItem-1', content: 'Learn Typescript' },
-		'taskItem-2': { id: 'taskItem-2', content: 'Trollo Project' },
-		'taskItem-3': { id: 'taskItem-3', content: 'Reciper Project' },
-	}
-}
-*/
 
 export default DragAndDropArea;
