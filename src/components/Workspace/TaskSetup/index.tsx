@@ -5,32 +5,27 @@ import { TaskSetupContainer, TaskSetupModal, TitleInput } from './styles';
 
 interface Props {
 	taskData: TaskData;
-	taskListIndex: number;
+	taskName: string;
 	setTaskData: (active: TaskData) => void;
-	setShowTaskSetup: (active: boolean) => void;
+	setShowTaskSetting: (active: boolean) => void;
 }
 
-const TaskSetup = ({
-	taskData,
-	taskListIndex,
-	setShowTaskSetup,
-	setTaskData,
-}: Props): JSX.Element => {
-	const [title, onChangeTitle] = useInput<string>('');
-	const [description, onChangeDescription] = useInput<string>('');
-	const [status, onChangeStatus] = useInput<string>('');
+const TaskSetup = ({ taskData, taskName, setShowTaskSetting, setTaskData }: Props): JSX.Element => {
+	const { id, title, description, start_date, end_date, checkList } = taskData.taskItem[taskName];
+
+	const [Tasktitle, onChangeTitle] = useInput<string>(title);
+	const [Taskdescription, onChangeDescription] = useInput<string>(description);
 
 	const onCloseModal = () => {
-		setShowTaskSetup(false);
+		setShowTaskSetting(false);
 	};
 
 	return (
 		<>
 			<TaskSetupContainer onClick={onCloseModal} />
 			<TaskSetupModal>
-				<TitleInput placeholder="Title" onChange={onChangeTitle} />
-				<input placeholder="Description" onChange={onChangeDescription} />
-				<input placeholder="status" onChange={onChangeStatus} />
+				<TitleInput placeholder="Title" value={Tasktitle} onChange={onChangeTitle} />
+				<input placeholder="Description" value={Taskdescription} onChange={onChangeDescription} />
 			</TaskSetupModal>
 		</>
 	);

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
 	min-width: 300px;
+	max-width: 300px;
 	padding: 0 20px 20px;
 	margin-right: 30px;
 	border: 2px solid #ddd;
@@ -9,12 +10,13 @@ export const Container = styled.div`
 
 export const Title = styled.div`
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	height: 50px;
+	padding: 16px 0;
 	& > p {
+		width: 100%;
 		font-family: NanumSquareB;
-		font-size: 18px;
+		font-size: 16px;
+		word-wrap: break-word;
 	}
 `;
 

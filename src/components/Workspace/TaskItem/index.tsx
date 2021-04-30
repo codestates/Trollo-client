@@ -7,9 +7,22 @@ interface Props {
 	taskList: TaskListData;
 	index: number;
 	taskData: TaskData;
+	setShowTaskSetting: (active: boolean) => void;
+	setTaskName: (active: string) => void;
 }
 
-const TaskItem = ({ taskList, index, taskData }: Props): JSX.Element => {
+const TaskItem = ({
+	taskList,
+	index,
+	taskData,
+	setShowTaskSetting,
+	setTaskName,
+}: Props): JSX.Element => {
+	const onClick = (task: string): void => {
+		setShowTaskSetting(true);
+		setTaskName(task);
+	};
+
 	return (
 		<Droppable droppableId={`TaskItem-${index}`} type="TaskItem">
 			{provided => (
@@ -21,6 +34,7 @@ const TaskItem = ({ taskList, index, taskData }: Props): JSX.Element => {
 									ref={provided.innerRef}
 									{...provided.dragHandleProps}
 									{...provided.draggableProps}
+									onClick={() => onClick(task)}
 								>
 									{taskData.taskItem[task].title}
 								</TaskItemContainer>

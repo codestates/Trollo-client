@@ -73,7 +73,9 @@ const DragAndDropArea = (): JSX.Element => {
 		},
 	});
 	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
-	const [showTaskSetup, setShowTaskSetup] = useState<boolean>(false);
+	const [showTaskSetting, setShowTaskSetting] = useState<boolean>(false);
+	const [taskName, setTaskName] = useState<string>('');
+
 	const [title, onAddTitle, setTitle] = useInput<string>('');
 
 	const onDragEnd = useCallback(
@@ -105,7 +107,11 @@ const DragAndDropArea = (): JSX.Element => {
 		[taskData],
 	);
 
-	const addTaskListData = useCallback((): void => {
+	const addTaskList = useCallback((): void => {
+		if (title.trim() === '') {
+			return;
+		}
+
 		const taskListFrame = {
 			id: `TaskList-${taskData.taskList.length + 1}`,
 			title,
@@ -135,6 +141,8 @@ const DragAndDropArea = (): JSX.Element => {
 										index={index}
 										taskData={taskData}
 										setTaskData={setTaskData}
+										setShowTaskSetting={setShowTaskSetting}
+										setTaskName={setTaskName}
 									/>
 								))}
 								{provided.placeholder}
@@ -144,9 +152,10 @@ const DragAndDropArea = (): JSX.Element => {
 								<AddTaskListTitleInput
 									placeholder="Title"
 									value={title}
+									maxLength={25}
 									onChange={onAddTitle}
-									onKeyPress={e => e.key === 'Enter' && addTaskListData()}
-									onBlur={addTaskListData}
+									onKeyPress={e => e.key === 'Enter' && addTaskList()}
+									onBlur={addTaskList}
 								/>
 							) : (
 								<AddTaskListBtn onClick={() => setAddBtnChangeForm(true)}>
@@ -158,16 +167,16 @@ const DragAndDropArea = (): JSX.Element => {
 				</Droppable>
 			</DragDropContext>
 
-			{/* {shwoTaskSetup && (
+			{showTaskSetting && (
 				<>
 					<TaskSetup
 						taskData={taskData}
+						taskName={taskName}
 						setTaskData={setTaskData}
-						taskListIndex={taskListIndex}
-						setShowTaskSetup={setShowTaskSetup}
+						setShowTaskSetting={setShowTaskSetting}
 					/>
 				</>
-			)} */}
+			)}
 		</WorksapceContainer>
 	);
 };

@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 
 export const WorksapceContainer = styled.div`
-	width: 100%;
-	height: calc(100vh - 56px);
 	padding: 40px;
 	padding-top: 96px;
 `;
@@ -24,7 +22,7 @@ export const AddTaskListBtn = styled.div`
 `;
 
 export const AddTaskListTitleInput = styled.input`
-	width: 300px;
+	min-width: 300px;
 	height: 50px;
 	padding: 0 20px;
 	font-family: NanumSquareB;
