@@ -48,7 +48,7 @@ const TaskList = ({
 	}, [title]);
 
 	return (
-		<Draggable draggableId={taskList.id} index={index}>
+		<Draggable draggableId={`TaskList-${index}`} index={index}>
 			{provided => (
 				<Container ref={provided.innerRef} {...provided.draggableProps}>
 					<Title {...provided.dragHandleProps}>

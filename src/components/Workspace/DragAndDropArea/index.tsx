@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import {
 	AddTaskListBtn,
@@ -12,7 +12,6 @@ import TaskList from '../TaskList';
 import TaskSettingModal from '../TaskSettingModal';
 
 export interface TaskListData {
-	id: string;
 	title: string;
 	tasks: string[];
 }
@@ -35,12 +34,11 @@ const DragAndDropArea = (): JSX.Element => {
 	const [taskData, setTaskData] = useState<TaskData>({
 		taskList: [
 			{
-				id: 'TaskList-1',
 				title: 'To do',
 				tasks: ['taskItem-1', 'taskItem-3'],
 			},
-			{ id: 'TaskList-2', title: 'In Progress', tasks: ['taskItem-2'] },
-			{ id: 'TaskList-3', title: 'Done', tasks: [] },
+			{ title: 'In Progress', tasks: ['taskItem-2'] },
+			{ title: 'Done', tasks: [] },
 		],
 		taskItem: {
 			'taskItem-1': {
@@ -136,7 +134,7 @@ const DragAndDropArea = (): JSX.Element => {
 							<DragAndDropContainer ref={provided.innerRef}>
 								{taskData.taskList.map((list, index) => (
 									<TaskList
-										key={list.id}
+										key={`TaskList-${index}`}
 										taskList={list}
 										index={index}
 										taskData={taskData}

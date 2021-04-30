@@ -31,10 +31,14 @@ const TaskSettingModal = ({
 }: Props): JSX.Element => {
 	const { id, title, description, start_date, end_date, checkList } = taskData.taskItem[taskName];
 
-	const [taskTitle, onChangeTitle] = useInput<string>(title);
+	const [taskTitle, onChangeTitle, setTaskTitle] = useInput<string>(title);
 	const [taskDescription, setTaskDescription] = useState<string>(description);
 
-	const onCloseModal = useCallback(() => {
+	const onCloseModal = useCallback((): void => {
+		if (taskTitle.trim() === '') {
+			setTaskTitle(title);
+		}
+
 		const test = {
 			[id]: {
 				id,
