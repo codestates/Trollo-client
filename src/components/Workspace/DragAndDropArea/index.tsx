@@ -9,7 +9,7 @@ import {
 import useInput from '../../../hooks/useInput';
 
 import TaskList from '../TaskList';
-import TaskSetup from '../TaskSetup';
+import TaskSettingModal from '../TaskSettingModal';
 
 export interface TaskListData {
 	id: string;
@@ -169,7 +169,7 @@ const DragAndDropArea = (): JSX.Element => {
 
 			{showTaskSetting && (
 				<>
-					<TaskSetup
+					<TaskSettingModal
 						taskData={taskData}
 						taskName={taskName}
 						setTaskData={setTaskData}
