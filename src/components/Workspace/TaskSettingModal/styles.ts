@@ -18,17 +18,80 @@ export const TaskSetupModal = styled.div`
 	z-index: 1010;
 	width: 500px;
 	height: 600px;
-	background: #fff;
-	border-left: 1px solid #ddd;
 	padding: 20px;
+	background: #fff;
+	border-radius: 4px;
+`;
+
+export const Section = styled.div`
+	width: 100%;
+	padding: 0 10px;
+	margin: 20px 0;
+`;
+
+export const TitleSection = styled(Section)`
+	margin-top: 0;
+	padding: 0;
+	border-bottom: 1px solid #ddd;
+`;
+export const DescriptionSection = styled(Section)``;
+export const DateSection = styled(Section)``;
+export const ChecklistSection = styled(Section)``;
+
+export const SectionTitle = styled.h3`
+	margin: 10px 0;
 `;
 
 export const TitleInput = styled.input`
 	width: 100%;
 	height: 50px;
 	padding: 0 10px;
-	margin-bottom: 20px;
 	font-family: NanumSquareB;
 	font-size: 24px;
-	border-bottom: 1px solid #ccc;
+`;
+
+export const DescriptionTextarea = styled.textarea`
+	resize: none;
+	width: 100%;
+	height: 70px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+`;
+
+export const DateWrap = styled.div`
+	display: flex;
+`;
+
+export const DateForm = styled.div`
+	margin-right: 20px;
+
+	& > p {
+		font-size: 14px;
+		margin-bottom: 5px;
+	}
+
+	& > input {
+		width: 100px;
+		height: 30px;
+		padding: 0 10px;
+		background-color: #f8f8f8;
+		border-radius: 3px;
+
+		::placeholder {
+			color: #d8d8db;
+		}
+	}
+`;
+
+export const ChecklistInput = styled.input`
+	width: 100%;
+	height: 30px;
+	padding: 0 10px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+
+	::placeholder {
+		color: #d8d8db;
+	}
 `;

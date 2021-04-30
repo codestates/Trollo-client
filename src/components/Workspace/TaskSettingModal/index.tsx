@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import { TaskData } from '../DragAndDropArea';
-import { TaskSetupContainer, TaskSetupModal, TitleInput } from './styles';
+import {
+	ChecklistInput,
+	ChecklistSection,
+	DateForm,
+	DateSection,
+	DateWrap,
+	DescriptionSection,
+	DescriptionTextarea,
+	SectionTitle,
+	TaskSetupContainer,
+	TaskSetupModal,
+	TitleInput,
+	TitleSection,
+} from './styles';
 
 interface Props {
 	taskData: TaskData;
@@ -10,25 +23,67 @@ interface Props {
 	setShowTaskSetting: (active: boolean) => void;
 }
 
-const TaskSetup = ({ taskData, taskName, setShowTaskSetting, setTaskData }: Props): JSX.Element => {
+const TaskSettingModal = ({
+	taskData,
+	taskName,
+	setShowTaskSetting,
+	setTaskData,
+}: Props): JSX.Element => {
 	const { id, title, description, start_date, end_date, checkList } = taskData.taskItem[taskName];
 
-	const [Tasktitle, onChangeTitle] = useInput<string>(title);
-	const [Taskdescription, onChangeDescription] = useInput<string>(description);
+	const [taskTitle, onChangeTitle] = useInput<string>(title);
+	const [taskDescription, setTaskDescription] = useState<string>(description);
 
-	const onCloseModal = () => {
+	const onCloseModal = useCallback(() => {
+		const test = {
+			[id]: {
+				id,
+				title: taskTitle,
+				description: taskDescription,
+				start_date: '0',
+				end_date: '0',
+				checkList: [],
+			},
+		};
+
+		setTaskData({ ...taskData, taskItem: { ...taskData.taskItem, ...test } });
 		setShowTaskSetting(false);
-	};
+	}, [taskTitle, taskDescription]);
 
 	return (
 		<>
 			<TaskSetupContainer onClick={onCloseModal} />
 			<TaskSetupModal>
-				<TitleInput placeholder="Title" value={Tasktitle} onChange={onChangeTitle} />
-				<input placeholder="Description" value={Taskdescription} onChange={onChangeDescription} />
+				<TitleSection>
+					<TitleInput placeholder="제목" value={taskTitle} onChange={onChangeTitle} />
+				</TitleSection>
+				<DescriptionSection>
+					<SectionTitle>내용</SectionTitle>
+					<DescriptionTextarea
+						value={taskDescription}
+						onChange={e => setTaskDescription(e.target.value)}
+					/>
+				</DescriptionSection>
+				<DateSection>
+					<SectionTitle>기간</SectionTitle>
+					<DateWrap>
+						<DateForm>
+							<p>Start date</p>
+							<input placeholder="Set start Date" />
+						</DateForm>
+						<DateForm>
+							<p>End date</p>
+							<input placeholder="Set end Date" />
+						</DateForm>
+					</DateWrap>
+				</DateSection>
+				<ChecklistSection>
+					<SectionTitle>체크리스트</SectionTitle>
+					<ChecklistInput placeholder="Add Checklist" />
+				</ChecklistSection>
 			</TaskSetupModal>
 		</>
 	);
 };
 
-export default TaskSetup;
+export default TaskSettingModal;
