@@ -21,7 +21,7 @@ export interface AuthorizationCode {
 }
 
 export interface AccessToken {
-	accessToken?: string;
+	accessToken?: string | null;
 }
 
 export interface AuthState {
@@ -30,4 +30,5 @@ export interface AuthState {
 	accessToken: AccessToken | null;
 	error: string;
 	message: string;
+	isLoggedIn: boolean;
 }
