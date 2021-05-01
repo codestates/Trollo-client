@@ -1,0 +1,50 @@
+// export const fetchLoginGithub = createAsyncThunk(
+// 	'login/fetchLoginGithub',
+// 	async ({ authorizationCode }: { authorizationCode: string }, thunkAPI) => {
+// 		return await axios
+// 			.post('http://8e4d052f7b39.ngrok.io/loginOAuthGithub', { authorizationCode })
+// 			.then(res => res.data.accessToken)
+// 			.catch(err => {
+// 				return thunkAPI.rejectWithValue(err);
+// 			});
+// 	},
+// );
+
+// const fetchLoginGoogle = createAsyncThunk('login/fetchLoginGoogle', async () => {
+// 	return await axios
+// 		.post('http://8e4d052f7b39.ngrok.io/loginOAuthGoogle')
+// 		.then(res => res.data)
+// 		.catch(err => console.log(err));
+// });
+	// extraReducers: {
+	// 	[fetchLoginGithub.pending.type]: state => {
+	// 		state.isLoggedIn = false;
+	// 		state.message = 'pending';
+	// 		console.log('111111 panding');
+	// 	},
+	// 	[fetchLoginGithub.fulfilled.type]: (state, { payload }: PayloadAction<AccessToken>) => {
+	// 		state.isLoggedIn = true;
+	// 		state.accessToken = payload;
+	// 		console.log('----------제발 토큰좀----------', state.accessToken);
+	// 	},
+	// 	[fetchLoginGithub.rejected.type]: (state, { err }) => {
+	// 		state.isLoggedIn = false;
+	// 		state.message = 'rejected';
+	// 		state.error = err;
+	// 		console.log('111111 rejected');
+	// 	},
+	// 	[fetchLoginGoogle.pending.type]: state => {
+	// 		state.isLoggedIn = false;
+	// 		state.message = 'pending';
+	// 	},
+	// 	[fetchLoginGoogle.fulfilled.type]: (state, { payload }: PayloadAction<AccessToken>) => {
+	// 		state.isLoggedIn = true;
+	// 		state.accessToken = payload;
+	// 		console.log('----------제발 토큰좀----------', state.accessToken);
+	// 	},
+	// 	[fetchLoginGoogle.rejected.type]: (state, { err }) => {
+	// 		state.isLoggedIn = false;
+	// 		state.message = 'rejected';
+	// 		state.error = err;
+	// 	},
+	// },
