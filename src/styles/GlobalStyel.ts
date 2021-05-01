@@ -11,6 +11,10 @@ const GlobalStyle = css`
 		text-decoration: none;
 	}
 
+	body {
+		font-family: nanumSquareR;
+	}
+
 	button,
 	input,
 	textarea {
