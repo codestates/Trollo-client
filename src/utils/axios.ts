@@ -1,6 +1,6 @@
 import axios, { Method } from 'axios';
 
-const DOMAIN = 'http://0ea79ecb3e9f.ngrok.io';
+const DOMAIN = 'http://8e4d052f7b39.ngrok.io';
 axios.defaults.withCredentials = true;
 
 export const axiosRequest = async <D, H>(method: Method, url: string, data?: D, headers?: H): Promise<D | void> => {
