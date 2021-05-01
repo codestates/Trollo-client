@@ -29,7 +29,7 @@ const TaskSettingModal = ({
 	setShowTaskSetting,
 	setTaskData,
 }: Props): JSX.Element => {
-	const { id, title, description, start_date, end_date, checkList } = taskData.taskItem[taskName];
+	const { title, description, start_date, end_date, checkList } = taskData.taskItem[taskName];
 
 	const [taskTitle, onChangeTitle, setTaskTitle] = useInput<string>(title);
 	const [taskDescription, setTaskDescription] = useState<string>(description);
@@ -40,8 +40,7 @@ const TaskSettingModal = ({
 		}
 
 		const test = {
-			[id]: {
-				id,
+			[taskName]: {
 				title: taskTitle,
 				description: taskDescription,
 				start_date: '0',

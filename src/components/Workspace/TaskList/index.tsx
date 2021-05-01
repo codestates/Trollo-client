@@ -2,8 +2,9 @@ import React, { useCallback, KeyboardEvent } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import useInput from '../../../hooks/useInput';
 import { TaskListData, TaskData } from '../DragAndDropArea';
+import MoreBtn from '../MoreBtn';
 import TaskItem from '../TaskItem';
-import { Container, Title, AddTaskInput } from './styles';
+import { Container, Title, AddTaskInput, TaskListTop } from './styles';
 
 interface Props {
 	taskList: TaskListData;
@@ -33,7 +34,6 @@ const TaskList = ({
 
 		const test = {
 			[id]: {
-				id,
 				title,
 				description: '',
 				start_date: '0',
@@ -51,9 +51,12 @@ const TaskList = ({
 		<Draggable draggableId={`TaskList-${index}`} index={index}>
 			{provided => (
 				<Container ref={provided.innerRef} {...provided.draggableProps}>
-					<Title {...provided.dragHandleProps}>
-						<p>{taskList.title}</p>
-					</Title>
+					<TaskListTop {...provided.dragHandleProps}>
+						<Title>
+							<p>{taskList.title}</p>
+						</Title>
+						<MoreBtn />
+					</TaskListTop>
 					<AddTaskInput
 						placeholder="+ Add Task"
 						value={title}

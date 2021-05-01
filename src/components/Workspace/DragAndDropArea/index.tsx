@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import {
 	AddTaskListBtn,
@@ -17,7 +18,6 @@ export interface TaskListData {
 }
 export interface TaskItemData {
 	[index: string]: {
-		id: string;
 		title: string;
 		description: string;
 		start_date: string;
@@ -42,7 +42,6 @@ const DragAndDropArea = (): JSX.Element => {
 		],
 		taskItem: {
 			'taskItem-1': {
-				id: 'taskItem-1',
 				title: 'Learn Typescript',
 				description: '타입스크립트 공부하기',
 				start_date: '0',
@@ -53,7 +52,6 @@ const DragAndDropArea = (): JSX.Element => {
 				],
 			},
 			'taskItem-2': {
-				id: 'taskItem-2',
 				title: 'Trollo Project',
 				description: '트롤로 만들기',
 				start_date: '0',
@@ -61,7 +59,6 @@ const DragAndDropArea = (): JSX.Element => {
 				checkList: [],
 			},
 			'taskItem-3': {
-				id: 'taskItem-3',
 				title: 'Reciper Project',
 				description: '레시퍼 만들기',
 				start_date: '0',
@@ -73,8 +70,20 @@ const DragAndDropArea = (): JSX.Element => {
 	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
 	const [showTaskSetting, setShowTaskSetting] = useState<boolean>(false);
 	const [taskName, setTaskName] = useState<string>('');
-
 	const [title, onAddTitle, setTitle] = useInput<string>('');
+
+	// useEffect(() => {
+	// 	axios
+	// 		.post('http://0ea79ecb3e9f.ngrok.io/workspaceget', { email: 'nsg8957@naver.com' })
+	// 		.then(data => console.log(data.data))
+	// 		.catch(err => console.log(err));
+
+	// 	return () => {
+	// 		axios
+	// 			.post('http://0ea79ecb3e9f.ngrok.io/workspace', taskData)
+	// 			.then(data => console.log(data));
+	// 	};
+	// }, []);
 
 	const onDragEnd = useCallback(
 		(result: DropResult) => {

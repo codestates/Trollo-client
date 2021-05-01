@@ -9,13 +9,13 @@ export const Container = styled.div`
 `;
 
 export const TaskItemContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
 	width: 100%;
-	height: 50px;
-	background-color: #fff;
+	padding: 15px 10px;
 	margin-bottom: 2px;
+	background-color: #fff;
 
 	// ex
-	line-height: 50px;
-	text-align: center;
 	font-size: 17px;
 `;

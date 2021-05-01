@@ -32,3 +32,9 @@ export const AddTaskInput = styled.input`
 	font-size: 17px;
 	border: 2px solid #ddd;
 `;
+
+export const TaskListTop = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
