@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Global, ThemeProvider } from '@emotion/react';
 import GlobalStyle from './styles/GlobalStyel';
 import Theme from './styles/Theme';
