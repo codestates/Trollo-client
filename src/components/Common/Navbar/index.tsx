@@ -1,16 +1,21 @@
-import React, { FC, useState, useCallback, MouseEventHandler } from 'react';
+import React, { useState, useCallback, MouseEventHandler } from 'react';
 import { BoardOrWorkspace, Divider, Header, Logo, LogoutButton, ProfileImg } from './styles';
 import PageLogo from '../../../images/PageLogo.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Menu from '../Menu/index';
 import gravatar from 'gravatar';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../../reducer/authorization';
+// TODO: 안쓸거면 지우자
 // import { BiBell } from 'react-icons/bi';
 
-const Navbar: FC = () => {
+const Navbar = (): JSX.Element => {
 	const [showMyPage, setShowMyPage] = useState(false);
 	const { Workspace } = useParams<{ Workspace?: string }>();
-	console.log(Workspace);
+	const dispatch = useDispatch();
+	const history = useHistory();
+	// console.log(Workspace);
 
 	const onClickMyPage = useCallback(() => {
 		setShowMyPage(prev => !prev);
@@ -20,6 +25,12 @@ const Navbar: FC = () => {
 		e.stopPropagation();
 		setShowMyPage(false);
 	}, []);
+
+	const onLogout = () => {
+		dispatch(logoutAction());
+		history.push('/');
+		alert('정상적으로 로그아웃 되었습니다.');
+	};
 
 	return (
 		<>
@@ -40,7 +51,7 @@ const Navbar: FC = () => {
 					{showMyPage && (
 						<Menu style={{ right: 24, top: 48 }} show={showMyPage} onCloseModal={onCloseMyPage}>
 							<div>trollo@gmail.com</div>
-							<LogoutButton>Sign out</LogoutButton>
+							<LogoutButton onClick={onLogout}>Sign out</LogoutButton>
 						</Menu>
 					)}
 				</span>
