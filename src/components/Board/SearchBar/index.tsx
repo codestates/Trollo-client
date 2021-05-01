@@ -1,37 +1,59 @@
-import React, { useState, useCallback } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import useInput from '../../../hooks/useInput';
+import UploadButton from '../UploadButton';
 import {
-	ModalBackground,
-	ModalContent,
-	ModalWrapper,
 	SearchBarWrapper,
-	UploadButton,
+	SearchButton,
+	SearchForm,
+	SearchInput,
+	SearchLabel,
+	SearchSelectBox,
+	Select,
+	Upload,
+	Option,
 } from './styles';
+import { FiSearch } from 'react-icons/fi';
 
 const SearchBar = (): JSX.Element => {
-	const [showModal, setShowModal] = useState(false);
+	const [title, onChangeTitle] = useInput<string>('');
+	const [showModal, setShowModal] = useState<boolean>(false);
 
-	const onClickUpload = useCallback(() => {
+	const onUploadModal = () => {
 		setShowModal(prev => !prev);
-	}, []);
+	};
 
-	const onCloseUpload = useCallback(e => {
-		e.stopPropagation();
-		setShowModal(false);
-	}, []);
+	const onChangeSearch = (e: ChangeEvent<HTMLSelectElement>) => {
+		//TODO: 로직 생각중..
+	};
 
 	return (
-		<SearchBarWrapper>
-			<UploadButton onClick={onClickUpload}>
-				<button>칸반보드 자랑하기</button>
-				{showModal && (
-					<ModalBackground>
-						<ModalWrapper>
-							<ModalContent>안녕</ModalContent>
-						</ModalWrapper>
-					</ModalBackground>
-				)}
-			</UploadButton>
-		</SearchBarWrapper>
+		<>
+			<SearchBarWrapper>
+				<Upload onClick={onUploadModal}>게시글 올리기</Upload>
+				<UploadButton showModal={showModal} setShowModal={setShowModal} />
+				<SearchSelectBox>
+					<Select onChange={onChangeSearch}>
+						<Option value="제목">제목</Option>
+						<Option value="작성자">작성자</Option>
+					</Select>
+				</SearchSelectBox>
+				<SearchForm>
+					<SearchLabel>
+						<SearchInput
+							type="title"
+							id="title"
+							name="title"
+							value={title}
+							placeholder="검색어를 입력하세요."
+							onChange={onChangeTitle}
+						/>
+						<SearchButton>
+							<FiSearch />
+						</SearchButton>
+					</SearchLabel>
+				</SearchForm>
+			</SearchBarWrapper>
+		</>
 	);
 };
 
