@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../../components/Common/Navbar';
-import Test from '../../images/test.png';
 import Carousel from '../../components/Board/Carousel';
 import Table from '../../components/Board/Table';
 
@@ -8,7 +7,7 @@ const Board = (): JSX.Element => {
 	return (
 		<>
 			<Navbar />
-			<Carousel images={Test} />
+			<Carousel />
 			<Table />
 		</>
 	);

@@ -8,29 +8,27 @@ import { ContentWrapper, GobackButton, Header } from './styles';
 // }
 
 const Content = (): JSX.Element => {
-    const [data, setData] = useState({});
-    const history = useHistory();
-    const { id } = useParams<{ id?: string }>();
+	const [data, setData] = useState({});
+	const history = useHistory();
+	const { id } = useParams<{ id?: string }>();
 
-    console.log(id);
+	console.log(id);
 
-    // useEffect(() => {
-    //     setData(getContentById(id));
-    // }, [ ]);
+	// useEffect(() => {
+	//     setData(getContentById(id));
+	// }, [ ]);
 
-    const onGoback = () => {
-        history.push("/Board/Board");
-    }
+	const onGoback = () => {
+		history.push('/Board/Board');
+	};
 
-    return (
-        <>
-            <Header>게시글</Header>
-            <ContentWrapper>
-
-            </ContentWrapper>
-            <GobackButton onClick={onGoback}>목록으로 돌아가기</GobackButton>
-        </>
-    )
+	return (
+		<>
+			<Header>게시글</Header>
+			<ContentWrapper></ContentWrapper>
+			<GobackButton onClick={onGoback}>목록으로 돌아가기</GobackButton>
+		</>
+	);
 };
 
 export default Content;

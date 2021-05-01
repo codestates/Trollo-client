@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import useInput from '../../hooks/useInput';
 import Logo from '../../images/logo.png';
 
 import { Button, Container, Form, Input, Label, LoginOrRegister, LogoImg } from './styles';
 
 const Register = (): JSX.Element => {
+	const [email, onChangeEmail] = useInput<string>('');
+
+	const onSubmit = useCallback(e => {
+		e.preventDefault();
+	}, []);
+
 	return (
 		<Container>
 			<LogoImg src={Logo} />
-			<Form>
+			<Form onSubmit={onSubmit}>
 				<Label>
 					<span>Email address</span>
 					<div>
-						<Input />
+						<Input type="email" id="email" name="email" value={email} onChange={onChangeEmail} />
 					</div>
 				</Label>
 			</Form>
