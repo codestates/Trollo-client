@@ -27,7 +27,8 @@ const TableList = (): JSX.Element => {
 	// Change page
 	const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
-	const selectedContent = (selectedContentId && contents.find(content => content.id === selectedContentId)) || null;
+	const selectedContent =
+		(selectedContentId && contents.find(content => content.id === selectedContentId)) || null;
 	const onDeleteContent = (): void => {
 		if (!selectedContentId) {
 			return;

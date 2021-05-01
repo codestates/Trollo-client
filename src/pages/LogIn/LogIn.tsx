@@ -29,7 +29,8 @@ const LogIn = (): JSX.Element => {
 	// const [loginError, setLoginError] = useState<boolean>(false);
 	// const accessToken = useSelector((state: AccessToken) => state.accessToken);
 	const dispatch = useDispatch();
-	const GITHUB_LOGIN_URL = 'https://github.com/login/oauth/authorize?client_id=acbcbe5ecc30788ce836';
+	const GITHUB_LOGIN_URL =
+		'https://github.com/login/oauth/authorize?client_id=acbcbe5ecc30788ce836';
 
 	const onLoginMail = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();

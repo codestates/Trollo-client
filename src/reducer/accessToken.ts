@@ -20,7 +20,10 @@ export const axiosAccessToken = (authorizationCode: string, email: string) => {
 	//TODO: Dipatch type => payload: ; type:{ payload: string; type: string }
 	return async (dispatch: Dispatch<{ payload: string; type: string }>): Promise<void> => {
 		try {
-			const response = await axios.post('http://8e4d052f7b39.ngrok.io/emailauth', { authorizationCode, email });
+			const response = await axios.post('http://8e4d052f7b39.ngrok.io/emailauth', {
+				authorizationCode,
+				email,
+			});
 			const data = response.data;
 			console.log('성공했따!!!!!!!!!!!!', data.data);
 			dispatch(getAccessTokenSuccess(data.data.accessToken));

@@ -44,7 +44,10 @@ const Navbar = (): JSX.Element => {
 					<Link to="/workspace/workspace">Workspace</Link>
 				</BoardOrWorkspace>
 				<span onClick={onClickMyPage}>
-					<ProfileImg src={gravatar.url('trollo@gmail.com', { s: '32px', d: 'retro' })} alt={'trollo'}></ProfileImg>
+					<ProfileImg
+						src={gravatar.url('trollo@gmail.com', { s: '32px', d: 'retro' })}
+						alt={'trollo'}
+					></ProfileImg>
 					{showMyPage && (
 						<Menu style={{ right: 24, top: 48 }} show={showMyPage} onCloseModal={onCloseMyPage}>
 							<div>trollo@gmail.com</div>
