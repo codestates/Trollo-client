@@ -19,8 +19,6 @@ export const Logo = styled.img`
 	margin-top: 4px;
 `;
 
-export const MyPage = styled.div``;
-
 export const ProfileImg = styled.img`
 	border-radius: 100%;
 `;

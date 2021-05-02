@@ -2,7 +2,7 @@ import React, { useState, useCallback, MouseEventHandler } from 'react';
 import { BoardOrWorkspace, Divider, Header, Logo, LogoutButton, ProfileImg } from './styles';
 import PageLogo from '../../../images/PageLogo.png';
 import { Link, useHistory } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Menu from '../Menu/index';
 import gravatar from 'gravatar';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,7 @@ import { logoutAction } from '../../../reducer/authorization';
 
 const Navbar = (): JSX.Element => {
 	const [showMyPage, setShowMyPage] = useState(false);
-	const { Workspace } = useParams<{ Workspace?: string }>();
+	// const { Workspace } = useParams<{ Workspace?: string }>();
 	const dispatch = useDispatch();
 	const history = useHistory();
 	// console.log(Workspace);
@@ -28,6 +28,7 @@ const Navbar = (): JSX.Element => {
 
 	const onLogout = () => {
 		dispatch(logoutAction());
+		// 쿠키 날리고 ,이메일 날리고, 액세스토큰, 로그인 타입
 		history.push('/');
 		alert('정상적으로 로그아웃 되었습니다.');
 	};
