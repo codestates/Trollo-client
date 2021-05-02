@@ -1,11 +1,4 @@
-import {
-	combineReducers,
-	createSlice,
-	PayloadAction,
-	getDefaultMiddleware,
-	configureStore,
-} from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 as uuid } from 'uuid';
 import { BoardContent } from '../type/type';
 //  id, createAt, content=> 칸반보드, (req: email, title, res: email, title, contentId, createAt)
