@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory, useParams } from 'react-router';
-import { getContentById } from '../../components/Board/Table/FakeData';
+// import { getContentById } from '../../components/Board/Table/FakeData';
 import { ContentWrapper, GobackButton, Header } from './styles';
 
 // interface Props {
@@ -8,7 +8,7 @@ import { ContentWrapper, GobackButton, Header } from './styles';
 // }
 
 const Content = (): JSX.Element => {
-	const [data, setData] = useState({});
+	// const [data, setData] = useState({});
 	const history = useHistory();
 	const { id } = useParams<{ id?: string }>();
 
