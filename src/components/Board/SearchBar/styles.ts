@@ -2,15 +2,12 @@ import styled from '@emotion/styled';
 
 export const SearchBarWrapper = styled.div`
 	display: flex;
-	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	width: 800px;
 	height: 48px;
 	margin: 0 auto;
-	position: relative;
-	top: 150px;
 `;
 
 export const Upload = styled.button`

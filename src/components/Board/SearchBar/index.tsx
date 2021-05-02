@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import UploadButton from '../UploadButton';
 import {
@@ -22,9 +22,9 @@ const SearchBar = (): JSX.Element => {
 		setShowModal(prev => !prev);
 	};
 
-	const onChangeSearch = (e: ChangeEvent<HTMLSelectElement>) => {
-		//TODO: 로직 생각중..
-	};
+	// const onChangeSearch = (e: ChangeEvent<HTMLSelectElement>) => {
+	// 	//TODO: 로직 생각중..
+	// };
 
 	return (
 		<>
@@ -32,7 +32,7 @@ const SearchBar = (): JSX.Element => {
 				<Upload onClick={onUploadModal}>게시글 올리기</Upload>
 				<UploadButton showModal={showModal} setShowModal={setShowModal} />
 				<SearchSelectBox>
-					<Select onChange={onChangeSearch}>
+					<Select>
 						<Option value="제목">제목</Option>
 						<Option value="작성자">작성자</Option>
 					</Select>

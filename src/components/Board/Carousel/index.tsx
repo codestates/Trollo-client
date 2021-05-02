@@ -5,12 +5,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Test from '../../../images/test.png';
 
-// TODO: 안쓸거면 지우자
-// interface Props {
-// 	images: string;
-// }
-// { images }: Props
-
 const NextArrow = (props: {
 	className?: string;
 	style?: CSSProperties;
@@ -59,10 +53,12 @@ const Carousel = (): JSX.Element => {
 		arrows: true,
 		dots: true,
 		infinite: true,
+		autoplay: true,
 		initialSlide: 0,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		speed: 300,
+		speed: 500,
+		autoplaySpeed: 3000,
 		nextArrow: <NextArrow />,
 		prevArrow: <PrevArrow />,
 	};

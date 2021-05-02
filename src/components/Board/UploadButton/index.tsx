@@ -1,4 +1,4 @@
-import React, { useCallback, FormEvent, ChangeEvent, useState } from 'react';
+import React, { useCallback, FormEvent } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import useInput from '../../../hooks/useInput';
 import {
@@ -12,9 +12,9 @@ import {
 	ModalInput,
 	ModalTitle,
 } from '../UploadButton/styles';
-import { useSelector, useDispatch } from 'react-redux';
-import { BoardState } from '../../../type/type';
-import { createContentAction } from '../../../reducer/board';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { BoardState } from '../../../type/type';
+// import { createContentAction } from '../../../reducer/board';
 
 interface Props {
 	showModal: boolean;
@@ -22,11 +22,11 @@ interface Props {
 }
 
 const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
-	const dispatch = useDispatch();
-	const content = useSelector((state: BoardState) => state.content);
-	const selectedContent = useSelector((state: BoardState) => state.selectedContent);
+	// const dispatch = useDispatch();
+	// const content = useSelector((state: BoardState) => state.content);
+	// const selectedContent = useSelector((state: BoardState) => state.selectedContent);
 	const [title, onChangeTitle] = useInput<string>('');
-	const [createContent, setCreateContent] = useState<string>('');
+	// const [createContent, setCreateContent] = useState<string>('');
 
 	const onCloseModal = useCallback(() => {
 		setShowModal(false);
@@ -39,16 +39,16 @@ const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
 			return;
 		}
 
-		dispatch(
-			createContentAction({
-				email: 'useong0830',
-				title: title,
-				content: 'test',
-				createAt: '2021-04-29',
-			}),
-		);
-		setShowModal(false);
-		setCreateContent('');
+		// dispatch(
+		// 	createContentAction({
+		// 		email: 'useong0830',
+		// 		title: title,
+		// 		content: 'test',
+		// 		createAt: '2021-04-29',
+		// 	}),
+		// );
+		// setShowModal(false);
+		// setCreateContent('');
 	};
 
 	return (
