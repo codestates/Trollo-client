@@ -1,38 +1,44 @@
-import { AccessToken } from './../type/type';
+import { RootStateOrAny } from 'react-redux';
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// const TokenInitialState: { accessToken: string | null } = {
-// 	accessToken: null,
-// };
+interface LoginInfo {
+	[index: string]: string;
+}
 
-export const getAcccessToken = createSlice({
-	name: 'accessToken',
-	initialState: '',
+const LoginInfoState: LoginInfo = {
+	LoginType: '',
+	accessToken: '',
+	email: '',
+};
+
+export const getLoginInfo = createSlice({
+	name: 'loginInfo',
+	initialState: LoginInfoState,
 	reducers: {
-		getAccessTokenSuccess: (state, { payload }: PayloadAction<string>) => payload,
+		getLoginInfoSuccess: (state, { payload }: PayloadAction<LoginInfo>) => payload,
 	},
 });
 
-export const { getAccessTokenSuccess } = getAcccessToken.actions;
+export const { getLoginInfoSuccess } = getLoginInfo.actions;
 
-export const axiosAccessToken = (authorizationCode: string, email: string) => {
-	//TODO: Dipatch type => payload: ; type:{ payload: string; type: string }
-	return async (dispatch: Dispatch<{ payload: string; type: string }>): Promise<void> => {
+export const axiosLoginInfo = (
+	endpoint: string,
+	authorizationCode: string | null,
+	email: string | null,
+) => {
+	return async (dispatch: Dispatch<{ payload: LoginInfo; type: string }>): Promise<void> => {
 		try {
-			const response = await axios.post('http://8e4d052f7b39.ngrok.io/emailauth', {
+			const response = await axios.post(`http://dd8755ab1f88.ngrok.io/${endpoint}`, {
 				authorizationCode,
 				email,
 			});
 			const data = response.data;
-			console.log('성공했따!!!!!!!!!!!!', data.data);
-			dispatch(getAccessTokenSuccess(data.data.accessToken));
+			dispatch(getLoginInfoSuccess(data));
 		} catch (error) {
 			console.log(error);
 		}
 	};
 };
 
-export const getAccessTokenSelector = (state: string): string => state;
-
-export default getAcccessToken.reducer;
+export const getLoginInfoSelector = (state: RootStateOrAny): LoginInfo => state.getLoginInfo;
