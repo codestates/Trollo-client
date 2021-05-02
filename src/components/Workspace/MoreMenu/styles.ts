@@ -20,3 +20,22 @@ export const Dot = styled.span`
 		margin: 2px auto;
 	}
 `;
+
+export const MoreMenuContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 40px;
+	right: -5px;
+	width: 70px;
+	height: 30px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+
+	& > button {
+		color: red;
+		background-color: #fff;
+	}
+`;

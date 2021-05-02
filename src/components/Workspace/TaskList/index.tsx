@@ -1,28 +1,22 @@
 import React, { useCallback, KeyboardEvent } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { useDispatch } from 'react-redux';
 import useInput from '../../../hooks/useInput';
-import { TaskListData, TaskData } from '../DragAndDropArea';
-import MoreBtn from '../MoreBtn';
+import { TaskListData } from '../DragAndDropArea';
+import MoreMenu from '../MoreMenu';
 import TaskItem from '../TaskItem';
 import { Container, Title, AddTaskInput, TaskListTop } from './styles';
+import { addTask } from '../../../reducer/workspace';
 
 interface Props {
 	taskList: TaskListData;
 	index: number;
-	taskData: TaskData;
-	setTaskData: (active: TaskData) => void;
 	setShowTaskSetting: (active: boolean) => void;
 	setTaskName: (active: string) => void;
 }
 
-const TaskList = ({
-	taskList,
-	index,
-	taskData,
-	setTaskData,
-	setShowTaskSetting,
-	setTaskName,
-}: Props): JSX.Element => {
+const TaskList = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): JSX.Element => {
+	const dispatch = useDispatch();
 	const [title, onChangeTitle, setTitle] = useInput<string>('');
 
 	const onAddTask = useCallback((): void => {
@@ -30,20 +24,7 @@ const TaskList = ({
 			return;
 		}
 
-		const id = `TaskItem-${Object.keys(taskData.taskItem).length + 1}`;
-
-		const test = {
-			[id]: {
-				title,
-				description: '',
-				start_date: '0',
-				end_date: '0',
-				checkList: [],
-			},
-		};
-
-		taskData.taskList[index].tasks.push(id);
-		setTaskData({ ...taskData, taskItem: { ...taskData.taskItem, ...test } });
+		dispatch(addTask({ index, title }));
 		setTitle('');
 	}, [title]);
 
@@ -55,7 +36,7 @@ const TaskList = ({
 						<Title>
 							<p>{taskList.title}</p>
 						</Title>
-						<MoreBtn />
+						<MoreMenu type="tasklist" index={index} />
 					</TaskListTop>
 					<AddTaskInput
 						placeholder="+ Add Task"
@@ -67,7 +48,6 @@ const TaskList = ({
 					<TaskItem
 						taskList={taskList}
 						index={index}
-						taskData={taskData}
 						setShowTaskSetting={setShowTaskSetting}
 						setTaskName={setTaskName}
 					/>

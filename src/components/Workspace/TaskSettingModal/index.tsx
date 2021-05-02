@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
-import { TaskData } from '../DragAndDropArea';
+import { changeTaskDetail, taskSelector } from '../../../reducer/workspace';
 import {
 	ChecklistInput,
 	ChecklistSection,
@@ -17,19 +18,15 @@ import {
 } from './styles';
 
 interface Props {
-	taskData: TaskData;
 	taskName: string;
-	setTaskData: (active: TaskData) => void;
 	setShowTaskSetting: (active: boolean) => void;
 }
 
-const TaskSettingModal = ({
-	taskData,
-	taskName,
-	setShowTaskSetting,
-	setTaskData,
-}: Props): JSX.Element => {
-	const { title, description, start_date, end_date, checkList } = taskData.taskItem[taskName];
+const TaskSettingModal = ({ taskName, setShowTaskSetting }: Props): JSX.Element => {
+	const dispatch = useDispatch();
+	const taskInitalData = useSelector(taskSelector);
+
+	const { title, description } = taskInitalData.taskItem[taskName];
 
 	const [taskTitle, onChangeTitle, setTaskTitle] = useInput<string>(title);
 	const [taskDescription, setTaskDescription] = useState<string>(description);
@@ -39,17 +36,7 @@ const TaskSettingModal = ({
 			setTaskTitle(title);
 		}
 
-		const test = {
-			[taskName]: {
-				title: taskTitle,
-				description: taskDescription,
-				start_date: '0',
-				end_date: '0',
-				checkList: [],
-			},
-		};
-
-		setTaskData({ ...taskData, taskItem: { ...taskData.taskItem, ...test } });
+		dispatch(changeTaskDetail({ taskName, title: taskTitle, description: taskDescription }));
 		setShowTaskSetting(false);
 	}, [taskTitle, taskDescription]);
 

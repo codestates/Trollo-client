@@ -18,7 +18,7 @@ const App = (): JSX.Element => {
 				<Route path="/Login" component={Login} />
 				<Route path="/Register" component={Register} />
 				<Route exact path="/Board" component={Board} />
-				<Route path="/Board/Board/:id" component={Content} />
+				<Route path="/Board/:id" component={Content} />
 				<Route path="/workspace" component={Worksapce} />
 			</Switch>
 		</ThemeProvider>

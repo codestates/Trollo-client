@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useCallback, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import {
 	AddTaskListBtn,
@@ -11,6 +10,13 @@ import useInput from '../../../hooks/useInput';
 
 import TaskList from '../TaskList';
 import TaskSettingModal from '../TaskSettingModal';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	reorderTaskList,
+	taskSelector,
+	reorderTaskItem,
+	addTaskList,
+} from '../../../reducer/workspace';
 
 export interface TaskListData {
 	title: string;
@@ -31,105 +37,48 @@ export interface TaskData {
 }
 
 const DragAndDropArea = (): JSX.Element => {
-	const [taskData, setTaskData] = useState<TaskData>({
-		taskList: [
-			{
-				title: 'To do',
-				tasks: ['taskItem-1', 'taskItem-3'],
-			},
-			{ title: 'In Progress', tasks: ['taskItem-2'] },
-			{ title: 'Done', tasks: [] },
-		],
-		taskItem: {
-			'taskItem-1': {
-				title: 'Learn Typescript',
-				description: '타입스크립트 공부하기',
-				start_date: '0',
-				end_date: '0',
-				checkList: [
-					{ content: '기본 타입 완벽 이해', checked: false },
-					{ content: '기본 타입 완벽 이해', checked: false },
-				],
-			},
-			'taskItem-2': {
-				title: 'Trollo Project',
-				description: '트롤로 만들기',
-				start_date: '0',
-				end_date: '0',
-				checkList: [],
-			},
-			'taskItem-3': {
-				title: 'Reciper Project',
-				description: '레시퍼 만들기',
-				start_date: '0',
-				end_date: '0',
-				checkList: [{ content: '기본 타입 완벽 이해', checked: false }],
-			},
-		},
-	});
+	const dispatch = useDispatch();
+	const taskInitalData = useSelector(taskSelector);
+
+	// const [taskData, setTaskData] = useState<TaskData>(taskInitalData);
+
 	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
 	const [showTaskSetting, setShowTaskSetting] = useState<boolean>(false);
 	const [taskName, setTaskName] = useState<string>('');
 	const [title, onAddTitle, setTitle] = useInput<string>('');
 
-	// useEffect(() => {
-	// 	axios
-	// 		.post('http://0ea79ecb3e9f.ngrok.io/workspaceget', { email: 'nsg8957@naver.com' })
-	// 		.then(data => console.log(data.data))
-	// 		.catch(err => console.log(err));
-
-	// 	return () => {
-	// 		axios
-	// 			.post('http://0ea79ecb3e9f.ngrok.io/workspace', taskData)
-	// 			.then(data => console.log(data));
-	// 	};
-	// }, []);
-
 	const onDragEnd = useCallback(
 		(result: DropResult) => {
 			const { type, source, destination } = result;
-			const { taskList, taskItem } = taskData;
 
 			if (!destination) {
 				return;
 			}
 
 			if (type === 'TaskList') {
-				const targetData = taskList.splice(source.index, 1);
-				taskData.taskList.splice(destination.index, 0, ...targetData);
+				dispatch(reorderTaskList({ startIndex: source.index, endIndex: destination.index }));
 			}
 
 			if (type === 'TaskItem') {
-				const currentIndex = source.index;
-				const targetIndex = destination.index;
-				const currentListIndex = Number(source.droppableId.split('-')[1]);
-				const targetListIndex = Number(destination.droppableId.split('-')[1]);
-				const currentTasks: string[] = taskList[currentListIndex].tasks;
-				const targetTasks: string[] = taskList[targetListIndex].tasks;
-
-				const current = currentTasks.splice(currentIndex, 1);
-				targetTasks.splice(targetIndex, 0, ...current);
+				dispatch(
+					reorderTaskItem({
+						currentIndex: source.index,
+						targetIndex: destination.index,
+						currentListIndex: Number(source.droppableId.split('-')[1]),
+						targetListIndex: Number(destination.droppableId.split('-')[1]),
+					}),
+				);
 			}
 		},
-		[taskData],
+		[taskInitalData],
 	);
 
-	const addTaskList = useCallback((): void => {
+	const onAddTaskList = useCallback((): void => {
 		if (title.trim() === '') {
 			return;
 		}
 
-		const taskListFrame = {
-			id: `TaskList-${taskData.taskList.length + 1}`,
-			title,
-			tasks: [],
-		};
-
-		setTaskData({
-			...taskData,
-			taskList: [...taskData.taskList, taskListFrame],
-		});
-
+		dispatch(addTaskList(title));
 		setTitle('');
 		setAddBtnChangeForm(false);
 	}, [title]);
@@ -141,13 +90,11 @@ const DragAndDropArea = (): JSX.Element => {
 					{provided => (
 						<div style={{ display: 'flex' }}>
 							<DragAndDropContainer ref={provided.innerRef}>
-								{taskData.taskList.map((list, index) => (
+								{taskInitalData.taskList.map((list, index) => (
 									<TaskList
 										key={`TaskList-${index}`}
 										taskList={list}
 										index={index}
-										taskData={taskData}
-										setTaskData={setTaskData}
 										setShowTaskSetting={setShowTaskSetting}
 										setTaskName={setTaskName}
 									/>
@@ -161,8 +108,8 @@ const DragAndDropArea = (): JSX.Element => {
 									value={title}
 									maxLength={25}
 									onChange={onAddTitle}
-									onKeyPress={e => e.key === 'Enter' && addTaskList()}
-									onBlur={addTaskList}
+									onKeyPress={e => e.key === 'Enter' && onAddTaskList()}
+									onBlur={onAddTaskList}
 								/>
 							) : (
 								<AddTaskListBtn onClick={() => setAddBtnChangeForm(true)}>
@@ -176,12 +123,7 @@ const DragAndDropArea = (): JSX.Element => {
 
 			{showTaskSetting && (
 				<>
-					<TaskSettingModal
-						taskData={taskData}
-						taskName={taskName}
-						setTaskData={setTaskData}
-						setShowTaskSetting={setShowTaskSetting}
-					/>
+					<TaskSettingModal taskName={taskName} setShowTaskSetting={setShowTaskSetting} />
 				</>
 			)}
 		</WorksapceContainer>
