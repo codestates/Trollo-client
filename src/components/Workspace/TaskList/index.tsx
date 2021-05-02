@@ -47,7 +47,7 @@ const TaskList = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): 
 					/>
 					<TaskItem
 						taskList={taskList}
-						index={index}
+						listIndex={index}
 						setShowTaskSetting={setShowTaskSetting}
 						setTaskName={setTaskName}
 					/>

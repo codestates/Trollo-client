@@ -8,12 +8,12 @@ import { Container, TaskItemContainer } from './styles';
 
 interface Props {
 	taskList: TaskListData;
-	index: number;
+	listIndex: number;
 	setShowTaskSetting: (active: boolean) => void;
 	setTaskName: (active: string) => void;
 }
 
-const TaskItem = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): JSX.Element => {
+const TaskItem = ({ taskList, listIndex, setShowTaskSetting, setTaskName }: Props): JSX.Element => {
 	const taskInitalData = useSelector(taskSelector);
 
 	const onClick = (task: string, e: MouseEvent): void => {
@@ -23,11 +23,11 @@ const TaskItem = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): 
 	};
 
 	return (
-		<Droppable droppableId={`TaskItem-${index}`} type="TaskItem">
+		<Droppable droppableId={`TaskItem-${listIndex}`} type="TaskItem">
 			{provided => (
 				<Container ref={provided.innerRef}>
-					{taskList.tasks.map((task, index) => (
-						<Draggable key={task} draggableId={String(task)} index={index}>
+					{taskList.tasks.map((task, itemIndex) => (
+						<Draggable key={task} draggableId={String(task)} index={itemIndex}>
 							{provided => (
 								<TaskItemContainer
 									ref={provided.innerRef}
@@ -36,7 +36,12 @@ const TaskItem = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): 
 									onClick={e => onClick(task, e)}
 								>
 									{taskInitalData.taskItem[task].title}
-									<MoreMenu type="taskitem" index={index} />
+									<MoreMenu
+										type="taskitem"
+										index={listIndex}
+										itemIndex={itemIndex}
+										taskName={task}
+									/>
 								</TaskItemContainer>
 							)}
 						</Draggable>
