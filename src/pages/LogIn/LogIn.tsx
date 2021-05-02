@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, FormEvent } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import Logo from '../../images/logo.png';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
 	Button,
 	Container,
@@ -19,36 +19,54 @@ import {
 } from './styles';
 import { FcGoogle } from 'react-icons/fc';
 import { IoLogoGithub } from 'react-icons/io';
-import { fetchMailLogin, mailerLoginAciton } from '../../reducer/authorization';
-import { AccessToken, AuthorizationCode } from '../../type/type';
 import axios from 'axios';
+import { axiosLoginInfo } from '../../reducer/accessToken';
 
 const LogIn = (): JSX.Element => {
 	const [email, onChangeEmail] = useInput<string>('');
-	// const authorizationCode = useSelector((state: AuthorizationCode) => state.authorizationCode);
 	// const [loginError, setLoginError] = useState<boolean>(false);
-	// const accessToken = useSelector((state: AccessToken) => state.accessToken);
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const GITHUB_LOGIN_URL =
 		'https://github.com/login/oauth/authorize?client_id=acbcbe5ecc30788ce836';
+	const GOOGLE_LOGIN_URL =
+		'https://accounts.google.com/o/oauth2/auth?client_id=1026659521874-edp0dknss2j85jk6kjun2pne9mi3ik86.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&access_type=offline';
 
 	const onLoginMail = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		// dispatch(fetchMailLogin({ email }));
-		axios.post('http://8e4d052f7b39.ngrok.io/mail', { email });
+		axios.post('http://dd8755ab1f88.ngrok.io/mail', { email });
 		alert('해당 메일에 인증번호가 전송되었습니다.');
+		console.log(onChangeEmail);
 	};
 
 	const onGithubLogin = () => {
 		window.location.assign(GITHUB_LOGIN_URL);
 	};
 
+	const onGoogleLogin = () => {
+		window.location.assign(GOOGLE_LOGIN_URL);
+	};
+
 	useEffect(() => {
 		const url = new URL(window.location.href);
-		const code = url.searchParams.get('code');
+		const authorizationCode = url.searchParams.get('code');
+		const scope = url.searchParams.get('scope');
+		const email = url.searchParams.get('email');
 
-		// dispatch(fetchLoginGithub());
-	}, [dispatch]);
+		if (authorizationCode) {
+			if (email) {
+				dispatch(axiosLoginInfo('emailauth', authorizationCode, email));
+				history.push('/workspace');
+			} else if (scope) {
+				dispatch(axiosLoginInfo('loginOAuthGoogle', authorizationCode, email));
+				history.push('/workspace');
+			} else {
+				dispatch(axiosLoginInfo('loginOAuthGithub', authorizationCode, email));
+				history.push('/workspace');
+			}
+		}
+	}, []);
 
 	return (
 		<div>
@@ -73,7 +91,7 @@ const LogIn = (): JSX.Element => {
 				<Or>OR</Or>
 				<Line />
 			</WithOAuth>
-			<GoogleLogin>
+			<GoogleLogin onClick={onGoogleLogin}>
 				<FcGoogle />
 				&nbsp; Google
 			</GoogleLogin>
