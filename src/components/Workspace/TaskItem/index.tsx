@@ -1,24 +1,21 @@
-import React, { MouseEvent, MouseEventHandler } from 'react';
+import React, { MouseEvent } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { TaskListData, TaskData } from '../DragAndDropArea';
-import MoreBtn from '../MoreBtn';
+import { useSelector } from 'react-redux';
+import { taskSelector } from '../../../reducer/workspace';
+import { TaskListData } from '../DragAndDropArea';
+import MoreMenu from '../MoreMenu';
 import { Container, TaskItemContainer } from './styles';
 
 interface Props {
 	taskList: TaskListData;
 	index: number;
-	taskData: TaskData;
 	setShowTaskSetting: (active: boolean) => void;
 	setTaskName: (active: string) => void;
 }
 
-const TaskItem = ({
-	taskList,
-	index,
-	taskData,
-	setShowTaskSetting,
-	setTaskName,
-}: Props): JSX.Element => {
+const TaskItem = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): JSX.Element => {
+	const taskInitalData = useSelector(taskSelector);
+
 	const onClick = (task: string, e: MouseEvent): void => {
 		e.stopPropagation();
 		setShowTaskSetting(true);
@@ -38,8 +35,8 @@ const TaskItem = ({
 									{...provided.draggableProps}
 									onClick={e => onClick(task, e)}
 								>
-									{taskData.taskItem[task].title}
-									<MoreBtn />
+									{taskInitalData.taskItem[task].title}
+									<MoreMenu type="taskitem" index={index} />
 								</TaskItemContainer>
 							)}
 						</Draggable>
