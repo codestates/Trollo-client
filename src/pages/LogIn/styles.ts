@@ -1,17 +1,23 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const PageContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 800px;
+`;
+
+export const LoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 300px;
 	width: 400px;
+	margin-top: -30px;
+	margin-bottom: 30px;
 	border-radius: 5px;
-	position: absolute;
-	left: 50%;
-	top: 30%;
-	transform: translate(-50%, -50%);
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 `;
 
@@ -72,14 +78,18 @@ export const Button = styled.button`
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 `;
 
+export const OAuthContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
+
 export const WithOAuth = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	left: 50%;
-	top: 52%;
-	transform: translate(-50%, -50%);
+	margin-bottom: 10px;
 `;
 
 export const Line = styled.hr`
@@ -94,10 +104,6 @@ export const GoogleLogin = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	left: 50%;
-	top: 58%;
-	transform: translate(-50%, -50%);
 	margin-bottom: 20px;
 	width: 300px;
 	max-width: 100%;
@@ -115,10 +121,6 @@ export const GithubLogin = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	left: 50%;
-	top: 65%;
-	transform: translate(-50%, -50%);
 	margin-bottom: 20px;
 	width: 300px;
 	max-width: 100%;
@@ -138,49 +140,3 @@ export const Success = styled.div``;
 export const LoginOrRegister = styled.p`
 	margin-bottom: 20px;
 `;
-
-// export const WithOAuth = styled.div`
-//     display:flex;
-//     flex-direction: column;
-//     justify-content: top;
-//     align-items: center;
-//     text-align: center;
-//     height: 300px;
-//     width: 400px;
-//     position: absolute;
-//     left: 50%;
-//     top: 72%;
-//     transform: translate(-50%, -50%);
-// `;
-
-// export const Line = styled.div`
-//     margin-bottom: 16px;
-
-// `;
-
-// export const GoogleLogin = styled.button`
-//     margin-bottom: 20px;
-//     width: 300px;
-//     max-width: 100%;
-//     text-align: center;
-//     height: 40px;
-//     color: #black;
-//     background-color: #fff;
-//     font-size: 20px;
-//     font-weight: 900;
-//     border-radius: 5px;
-//     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-// `;
-
-// export const GithubLogin = styled.button`
-//     margin-bottom: 20px;
-//     width: 300px;
-//     max-width: 100%;
-//     height: 40px;
-//     color: #fff;
-//     background-color: #374151;
-//     font-size: 20px;
-//     font-weight: 900;
-//     border-radius: 5px;
-//     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-// `;

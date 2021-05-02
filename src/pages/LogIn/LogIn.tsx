@@ -5,16 +5,18 @@ import Logo from '../../images/logo.png';
 import { useDispatch } from 'react-redux';
 import {
 	Button,
-	Container,
 	Form,
 	GithubLogin,
 	GoogleLogin,
 	Input,
 	Label,
 	Line,
+	LoginContainer,
 	LoginOrRegister,
 	LogoImg,
+	OAuthContainer,
 	Or,
+	PageContainer,
 	WithOAuth,
 } from './styles';
 import { FcGoogle } from 'react-icons/fc';
@@ -24,7 +26,6 @@ import { axiosLoginInfo } from '../../reducer/accessToken';
 
 const LogIn = (): JSX.Element => {
 	const [email, onChangeEmail] = useInput<string>('');
-	// const [loginError, setLoginError] = useState<boolean>(false);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const GITHUB_LOGIN_URL =
@@ -34,10 +35,8 @@ const LogIn = (): JSX.Element => {
 
 	const onLoginMail = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		// dispatch(fetchMailLogin({ email }));
 		axios.post('http://dd8755ab1f88.ngrok.io/mail', { email });
 		alert('해당 메일에 인증번호가 전송되었습니다.');
-		console.log(onChangeEmail);
 	};
 
 	const onGithubLogin = () => {
@@ -69,8 +68,8 @@ const LogIn = (): JSX.Element => {
 	}, []);
 
 	return (
-		<div>
-			<Container>
+		<PageContainer>
+			<LoginContainer>
 				<LogoImg src={Logo} />
 				<Form onSubmit={onLoginMail}>
 					<Label>
@@ -85,21 +84,23 @@ const LogIn = (): JSX.Element => {
 					아직 회원이 아니신가요?&nbsp;
 					<Link to="/Register">회원가입 하러 가기</Link>
 				</LoginOrRegister>
-			</Container>
-			<WithOAuth>
-				<Line />
-				<Or>OR</Or>
-				<Line />
-			</WithOAuth>
-			<GoogleLogin onClick={onGoogleLogin}>
-				<FcGoogle />
-				&nbsp; Google
-			</GoogleLogin>
-			<GithubLogin onClick={onGithubLogin}>
-				<IoLogoGithub />
-				&nbsp; Github
-			</GithubLogin>
-		</div>
+			</LoginContainer>
+			<OAuthContainer>
+				<WithOAuth>
+					<Line />
+					<Or>OR</Or>
+					<Line />
+				</WithOAuth>
+				<GoogleLogin onClick={onGoogleLogin}>
+					<FcGoogle />
+					&nbsp; Google
+				</GoogleLogin>
+				<GithubLogin onClick={onGithubLogin}>
+					<IoLogoGithub />
+					&nbsp; Github
+				</GithubLogin>
+			</OAuthContainer>
+		</PageContainer>
 	);
 };
 
