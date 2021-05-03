@@ -7,8 +7,6 @@ import Menu from '../Menu/index';
 import gravatar from 'gravatar';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '../../../reducer/authorization';
-// TODO: 안쓸거면 지우자
-// import { BiBell } from 'react-icons/bi';
 
 const Navbar = (): JSX.Element => {
 	const [showMyPage, setShowMyPage] = useState(false);
@@ -40,9 +38,9 @@ const Navbar = (): JSX.Element => {
 					<Logo src={PageLogo} />
 				</div>
 				<BoardOrWorkspace>
-					<Link to="/board/board">Board</Link>
+					<Link to="/board">Board</Link>
 					<Divider>|</Divider>
-					<Link to="/workspace/workspace">Workspace</Link>
+					<Link to="/workspace">Workspace</Link>
 				</BoardOrWorkspace>
 				<span onClick={onClickMyPage}>
 					<ProfileImg
