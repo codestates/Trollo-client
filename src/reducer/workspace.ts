@@ -25,8 +25,17 @@ export interface AddTaskPayload {
 	index: number;
 	title: string;
 }
+export interface TaskCheckList {
+	content: string;
+	checked: boolean;
+}
 export interface ChangeTaskDetailPayload {
-	[index: string]: string;
+	taskName: string;
+	title: string;
+	description: string;
+	start_date: string;
+	end_date: string;
+	checkList: TaskCheckList[];
 }
 
 const taskInitalState: TaskData = {
@@ -44,8 +53,8 @@ const taskInitalState: TaskData = {
 		'taskItem-1': {
 			title: '안겹치는 제목',
 			description: '타입스크립트 공부하기',
-			start_date: '0',
-			end_date: '0',
+			start_date: 'Start Date',
+			end_date: 'End Date',
 			checkList: [
 				{ content: '기본 타입 완벽 이해', checked: false },
 				{ content: '기본 타입 완벽 이해', checked: false },
@@ -87,8 +96,8 @@ export const taskSlice = createSlice({
 				[taskName]: {
 					title,
 					description: '',
-					start_date: '0',
-					end_date: '0',
+					start_date: 'Start Date',
+					end_date: 'End Date',
 					checkList: [],
 				},
 			};
@@ -97,15 +106,15 @@ export const taskSlice = createSlice({
 			state.taskItem = { ...state.taskItem, ...taskFrame };
 		},
 		changeTaskDetail: (state, { payload }: PayloadAction<ChangeTaskDetailPayload>): void => {
-			const { taskName, title, description } = payload;
+			const { taskName, title, description, start_date, end_date, checkList } = payload;
 
 			const taskDetailFrame = {
 				[taskName]: {
 					title,
 					description,
-					start_date: '0',
-					end_date: '0',
-					checkList: [],
+					start_date,
+					end_date,
+					checkList,
 				},
 			};
 
@@ -114,6 +123,11 @@ export const taskSlice = createSlice({
 		deleteTaskList: (state, { payload: index }: PayloadAction<number>): void => {
 			state.taskList[index].tasks.forEach(itemId => delete state.taskItem[itemId]);
 			state.taskList.splice(index, 1);
+		},
+		deleteTaskItem: (state, { payload }): void => {
+			const { index, itemIndex, taskName } = payload;
+			state.taskList[index].tasks.splice(itemIndex, 1);
+			delete state.taskItem[taskName];
 		},
 	},
 });
@@ -125,6 +139,7 @@ export const {
 	addTask,
 	changeTaskDetail,
 	deleteTaskList,
+	deleteTaskItem,
 } = taskSlice.actions;
 
 export const taskSelector = (state: RootStateOrAny): TaskData => state.TaskData;
