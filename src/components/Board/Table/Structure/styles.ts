@@ -26,7 +26,7 @@ export const BoardNotice = styled.div`
 	text-align: left;
 `;
 
-export const TableBody = styled.div`
+export const TableBody = styled.tbody`
 	width: 100%;
 `;
 
