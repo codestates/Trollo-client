@@ -35,7 +35,7 @@ const LogIn = (): JSX.Element => {
 
 	const onLoginMail = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		axios.post('http://dd8755ab1f88.ngrok.io/mail', { email });
+		axios.post(`${process.env.REACT_APP_SERVER_URL}/mail`, { email });
 		alert('해당 메일에 인증번호가 전송되었습니다.');
 	};
 
