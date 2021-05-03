@@ -19,7 +19,7 @@ const Content = (): JSX.Element => {
 	// }, [ ]);
 
 	const onGoback = () => {
-		history.push('/Board/Board');
+		history.push('/Board');
 	};
 
 	return (
