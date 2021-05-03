@@ -1,7 +1,7 @@
 import { RootStateOrAny } from 'react-redux';
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+console.log('111', process.env.REACT_APP_SERVER_URL);
 interface LoginInfo {
 	[index: string]: string;
 }
@@ -29,7 +29,7 @@ export const axiosLoginInfo = (
 ) => {
 	return async (dispatch: Dispatch<{ payload: LoginInfo; type: string }>): Promise<void> => {
 		try {
-			const response = await axios.post(`http://dd8755ab1f88.ngrok.io/${endpoint}`, {
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/${endpoint}`, {
 				authorizationCode,
 				email,
 			});

@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthState } from '../type/type';
 
-const LoginInitialState: AuthState = {
-	email: '',
-	authorizationCode: null,
-	accessToken: null,
-	error: '',
-	message: '',
+interface LogoutState {
+	isLoggedIn: boolean;
+}
+
+const LoginInitialState: LogoutState = {
 	isLoggedIn: false,
 };
 
@@ -16,7 +14,6 @@ export const loginUser = createSlice({
 	reducers: {
 		logout: state => {
 			state.isLoggedIn = false;
-			state.accessToken = null;
 		},
 	},
 });
