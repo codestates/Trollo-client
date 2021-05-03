@@ -2,9 +2,15 @@ export interface BoardContent {
 	id: string;
 	email: string;
 	title: string;
-	content: string;
 	createAt: string;
-	isComplate: boolean;
+	content?: string | null;
+}
+
+export interface Board {
+	id: string;
+	email: string;
+	title: string;
+	createAt: string;
 }
 
 export interface BoardState {
@@ -16,19 +22,6 @@ export interface LoginData {
 	email: string;
 }
 
-export interface AuthorizationCode {
-	authorizationCode?: string | null;
-}
-
-export interface AccessToken {
-	accessToken?: string | null;
-}
-
-export interface AuthState {
-	email: string;
-	authorizationCode: AuthorizationCode | null;
-	accessToken: AccessToken | null;
-	error: string;
-	message: string;
-	isLoggedIn: boolean;
+export interface ContentTitle {
+	title: string;
 }
