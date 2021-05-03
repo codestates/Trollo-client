@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { forwardRef, LegacyRef, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import { changeTaskDetail, taskSelector } from '../../../reducer/workspace';
 import {
 	ChecklistInput,
 	ChecklistSection,
+	DateCustomBtn,
 	DateForm,
 	DateSection,
 	DateWrap,
@@ -16,6 +17,9 @@ import {
 	TitleInput,
 	TitleSection,
 } from './styles';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import './datepicker.css';
 
 interface Props {
 	taskName: string;
@@ -25,11 +29,11 @@ interface Props {
 const TaskSettingModal = ({ taskName, setShowTaskSetting }: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const taskInitalData = useSelector(taskSelector);
-
 	const { title, description } = taskInitalData.taskItem[taskName];
-
 	const [taskTitle, onChangeTitle, setTaskTitle] = useInput<string>(title);
 	const [taskDescription, setTaskDescription] = useState<string>(description);
+	const [startDate, setStartDate] = useState<any>(null);
+	const [endDate, setEndDate] = useState<any>(null);
 
 	const onCloseModal = useCallback((): void => {
 		if (taskTitle.trim() === '') {
@@ -40,6 +44,17 @@ const TaskSettingModal = ({ taskName, setShowTaskSetting }: Props): JSX.Element 
 		setShowTaskSetting(false);
 	}, [taskTitle, taskDescription]);
 
+	const DatePickerCustomBtn = forwardRef(
+		({ value, onClick, text }: any, ref: LegacyRef<HTMLButtonElement> | undefined) => {
+			return (
+				<DateCustomBtn className="example-custom-input" onClick={onClick} ref={ref}>
+					{value ? value : text}
+				</DateCustomBtn>
+			);
+		},
+	);
+	DatePickerCustomBtn.displayName = 'custom btn';
+	console.log(startDate, endDate);
 	return (
 		<>
 			<TaskSetupContainer onClick={onCloseModal} />
@@ -59,11 +74,30 @@ const TaskSettingModal = ({ taskName, setShowTaskSetting }: Props): JSX.Element 
 					<DateWrap>
 						<DateForm>
 							<p>Start date</p>
-							<input placeholder="Set start Date" />
+							<DatePicker
+								dateFormat="yyyy-MM-dd"
+								selected={startDate}
+								onChange={date => setStartDate(date)}
+								customInput={<DatePickerCustomBtn text="Start Date" />}
+								selectsStart
+								startDate={startDate}
+								endDate={endDate}
+								monthsShown={2}
+							/>
 						</DateForm>
 						<DateForm>
 							<p>End date</p>
-							<input placeholder="Set end Date" />
+							<DatePicker
+								dateFormat="yyyy-MM-dd"
+								selected={endDate}
+								onChange={date => setEndDate(date)}
+								customInput={<DatePickerCustomBtn text="End Date" />}
+								selectsEnd
+								startDate={startDate}
+								endDate={endDate}
+								minDate={startDate}
+								monthsShown={2}
+							/>
 						</DateForm>
 					</DateWrap>
 				</DateSection>

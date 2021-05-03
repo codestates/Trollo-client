@@ -84,6 +84,17 @@ export const DateForm = styled.div`
 	}
 `;
 
+export const DateCustomBtn = styled.button`
+	width: 100px;
+	height: 30px;
+	padding: 0 10px;
+	margin-bottom: 5px;
+	color: #aaa;
+	font-size: 14px;
+	background-color: #f5f5f5;
+	border-radius: 3px;
+`;
+
 export const ChecklistInput = styled.input`
 	width: 100%;
 	height: 30px;
