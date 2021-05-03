@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-	position: relative;
 	width: 100%;
 	min-height: 300px;
 	max-height: 600px;
@@ -10,6 +9,7 @@ export const Container = styled.div`
 `;
 
 export const TaskItemContainer = styled.div`
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;

@@ -26,6 +26,7 @@ export const MoreMenuContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	position: absolute;
+	z-index: 10;
 	top: 40px;
 	right: -5px;
 	width: 70px;

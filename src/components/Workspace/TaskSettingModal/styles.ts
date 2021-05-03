@@ -84,14 +84,57 @@ export const DateForm = styled.div`
 	}
 `;
 
+export const DateCustomBtn = styled.button`
+	width: 100px;
+	height: 30px;
+	padding: 0 10px;
+	margin-bottom: 5px;
+	color: #aaa;
+	font-size: 14px;
+	background-color: #f5f5f5;
+	border-radius: 3px;
+`;
+
 export const ChecklistInput = styled.input`
 	width: 100%;
 	height: 30px;
 	padding: 0 10px;
+	margin-bottom: 10px;
 	border: 1px solid #ddd;
 	border-radius: 3px;
 
 	::placeholder {
 		color: #d8d8db;
+	}
+`;
+
+export const ChecklistWrap = styled.div`
+	display: flex;
+	align-items: center;
+
+	&.checked {
+	}
+`;
+
+export const ChecklistCheckbox = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 12px;
+	height: 12px;
+	margin-right: 10px;
+	border: 1px solid #c8c8c8;
+	border-radius: 100%;
+
+	.checked > & {
+		border: 1px solid #478fbb;
+		background-color: #478fbb;
+	}
+`;
+
+export const ChecklistItem = styled.div`
+	.checked > & {
+		text-decoration: line-through;
+		color: #ddd;
 	}
 `;

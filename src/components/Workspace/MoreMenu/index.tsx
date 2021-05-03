@@ -1,14 +1,16 @@
 import React, { MouseEventHandler, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTaskList } from '../../../reducer/workspace';
+import { deleteTaskItem, deleteTaskList } from '../../../reducer/workspace';
 import { Dot, MoreBtnContainer, MoreMenuContainer } from './styles';
 
 interface Props {
-	index: number;
 	type: string;
+	index: number;
+	itemIndex?: number;
+	taskName?: string;
 }
 
-const MoreMenu = ({ index, type }: Props): JSX.Element => {
+const MoreMenu = ({ type, index, itemIndex, taskName }: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const [showMoreMenu, setShowMoreMenu] = useState(false);
 
@@ -17,9 +19,15 @@ const MoreMenu = ({ index, type }: Props): JSX.Element => {
 		setShowMoreMenu(!showMoreMenu);
 	};
 
-	const onDelete = () => {
+	const onDelete: MouseEventHandler<HTMLButtonElement> = (e): void => {
+		e.stopPropagation();
+
 		if (type === 'tasklist') {
 			dispatch(deleteTaskList(index));
+		}
+
+		if (type === 'taskitem') {
+			dispatch(deleteTaskItem({ index, itemIndex, taskName }));
 		}
 	};
 
