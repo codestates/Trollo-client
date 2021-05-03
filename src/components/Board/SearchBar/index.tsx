@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import useInput from '../../../hooks/useInput';
 import UploadButton from '../UploadButton';
 import {
@@ -14,6 +14,10 @@ import {
 } from './styles';
 import { FiSearch } from 'react-icons/fi';
 
+// interface Props {
+// 	onSubmit: any;
+// }
+
 const SearchBar = (): JSX.Element => {
 	const [title, onChangeTitle] = useInput<string>('');
 	const [showModal, setShowModal] = useState<boolean>(false);
@@ -22,9 +26,10 @@ const SearchBar = (): JSX.Element => {
 		setShowModal(prev => !prev);
 	};
 
-	// const onChangeSearch = (e: ChangeEvent<HTMLSelectElement>) => {
-	// 	//TODO: 로직 생각중..
-	// };
+	const onChangeSearch = (e: ChangeEvent<HTMLFormElement>) => {
+		//TODO: 로직 생각중..
+		e.preventDefault();
+	};
 
 	return (
 		<>
@@ -37,17 +42,15 @@ const SearchBar = (): JSX.Element => {
 						<Option value="작성자">작성자</Option>
 					</Select>
 				</SearchSelectBox>
-				<SearchForm>
+				<SearchForm onSubmit={onChangeSearch}>
 					<SearchLabel>
 						<SearchInput
-							type="title"
-							id="title"
-							name="title"
+							name="filter"
 							value={title}
 							placeholder="검색어를 입력하세요."
 							onChange={onChangeTitle}
 						/>
-						<SearchButton>
+						<SearchButton type="submit">
 							<FiSearch />
 						</SearchButton>
 					</SearchLabel>
