@@ -16,8 +16,6 @@ const Table = (): JSX.Element => {
 		dispatch(axiosBoardContents(authorization, LoginType));
 	}, []);
 
-	console.log(contents);
-
 	const columns = useMemo(
 		() => [
 			{
