@@ -1,9 +1,8 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useCallback } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { taskSelector } from '../../../reducer/workspace';
 import { TaskListData } from '../DragAndDropArea';
-import MoreMenu from '../MoreMenu';
 import { Container, TaskItemContainer } from './styles';
 
 interface Props {
@@ -16,11 +15,11 @@ interface Props {
 const TaskItem = ({ taskList, listIndex, setShowTaskSetting, setTaskName }: Props): JSX.Element => {
 	const taskInitalData = useSelector(taskSelector);
 
-	const onClick = (task: string, e: MouseEvent): void => {
+	const onShowTaskDetail = useCallback((task: string, e: MouseEvent): void => {
 		e.stopPropagation();
 		setShowTaskSetting(true);
 		setTaskName(task);
-	};
+	}, []);
 
 	return (
 		<Droppable droppableId={`TaskItem-${listIndex}`} type="TaskItem">
@@ -33,15 +32,9 @@ const TaskItem = ({ taskList, listIndex, setShowTaskSetting, setTaskName }: Prop
 									ref={provided.innerRef}
 									{...provided.dragHandleProps}
 									{...provided.draggableProps}
-									onClick={e => onClick(task, e)}
+									onClick={e => onShowTaskDetail(task, e)}
 								>
 									{taskInitalData.taskItem[task].title}
-									<MoreMenu
-										type="taskitem"
-										index={listIndex}
-										itemIndex={itemIndex}
-										taskName={task}
-									/>
 								</TaskItemContainer>
 							)}
 						</Draggable>

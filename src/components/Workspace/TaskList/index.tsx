@@ -3,7 +3,6 @@ import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import { TaskListData } from '../DragAndDropArea';
-import MoreMenu from '../MoreMenu';
 import TaskItem from '../TaskItem';
 import { Container, Title, AddTaskInput, TaskListTop } from './styles';
 import { addTask } from '../../../reducer/workspace';
@@ -36,7 +35,6 @@ const TaskList = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): 
 						<Title>
 							<p>{taskList.title}</p>
 						</Title>
-						<MoreMenu type="tasklist" index={index} />
 					</TaskListTop>
 					<AddTaskInput
 						placeholder="+ Add Task"
