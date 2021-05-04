@@ -1,3 +1,4 @@
+import { ContentDetailData } from './board_detail';
 import { getLoginInfo } from './accessToken';
 import { logger } from 'redux-logger';
 import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
@@ -17,6 +18,7 @@ export const reducer = combineReducers({
 	getLoginInfo: getLoginInfo.reducer,
 	TaskData: taskSlice.reducer,
 	Boardcontents: Boardcontents.reducer,
+	ContentDetailData: ContentDetailData.reducer,
 	// selectedContentSlice: selectedContentSlice.reducer,
 });
 

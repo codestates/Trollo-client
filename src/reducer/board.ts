@@ -1,10 +1,9 @@
-import { ContentTitle } from './../type/type';
 import { Dispatch } from 'react';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BoardContent } from '../type/type';
 import axios from 'axios';
 import { RootStateOrAny } from 'react-redux';
-//  id, createAt, content=> 칸반보드, (req: email, title, res: email, title, contentId, createAt)
+
 // 보드페이지 렌더링시 게시판 내려준다.
 // 상세페이지 => 보드/:id
 
@@ -41,7 +40,6 @@ export const axiosBoardContents = (authorization: string, LoginType: string) => 
 			});
 
 			const data = response.data.boardList;
-			console.log('read', data);
 			dispatch(readContents(data));
 		} catch (error) {
 			console.log(error);
@@ -63,7 +61,6 @@ export const axiosAddContent = (title: string, authorization: string, LoginType:
 				},
 			);
 			const data = response.data.boardList;
-			console.log('add', data);
 			dispatch(addContent(data));
 		} catch (error) {
 			console.log(error);
