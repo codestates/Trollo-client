@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Dispatch } from 'react';
 import { RootStateOrAny } from 'react-redux';
 
 export interface TaskListData {
@@ -39,28 +41,8 @@ export interface ChangeTaskDetailPayload {
 }
 
 const taskInitalState: TaskData = {
-	taskList: [
-		{
-			title: 'To do',
-			tasks: ['taskItem-1'],
-		},
-		{
-			title: 'Done',
-			tasks: [],
-		},
-	],
-	taskItem: {
-		'taskItem-1': {
-			title: '안겹치는 제목',
-			description: '타입스크립트 공부하기',
-			start_date: 'Start Date',
-			end_date: 'End Date',
-			checkList: [
-				{ content: '기본 타입 완벽 이해', checked: false },
-				{ content: '기본 타입 완벽 이해', checked: false },
-			],
-		},
-	},
+	taskList: [],
+	taskItem: {},
 };
 
 export const taskSlice = createSlice({
@@ -129,8 +111,37 @@ export const taskSlice = createSlice({
 			state.taskList[index].tasks.splice(itemIndex, 1);
 			delete state.taskItem[taskName];
 		},
+		getTaskData: (state, { payload }): void => payload,
 	},
 });
+
+export const axiosGetTaskDate = (accessToken: string, LoginType: string): any => {
+	return async (dispatch: Dispatch<{ payload: TaskData; type: string }>): Promise<void> => {
+		const bear = `Bearer ${accessToken}`;
+		try {
+			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/workspace`, {
+				headers: { authorization: bear, LoginType },
+			});
+			dispatch(getTaskData(response.data));
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+export const axiosPostTaskDate = (data: TaskData, accessToken: string, LoginType: string): any => {
+	return async (): Promise<void> => {
+		const bear = `Bearer ${accessToken}`;
+		console.log('axios start', data);
+		try {
+			await axios.post(`${process.env.REACT_APP_SERVER_URL}/workspace`, data, {
+				headers: { authorization: bear, LoginType },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
 
 export const {
 	reorderTaskList,
@@ -140,6 +151,7 @@ export const {
 	changeTaskDetail,
 	deleteTaskList,
 	deleteTaskItem,
+	getTaskData,
 } = taskSlice.actions;
 
 export const taskSelector = (state: RootStateOrAny): TaskData => state.TaskData;
