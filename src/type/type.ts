@@ -1,16 +1,10 @@
 export interface BoardContent {
-	id: string;
-	email: string;
-	title: string;
-	createAt: string;
-	content?: string | null;
-}
-
-export interface Board {
-	id: string;
-	email: string;
-	title: string;
-	createAt: string;
+	createdAt: string | null;
+	id: number | null;
+	title: string | null;
+	updatedAt: string | null;
+	user_id: number | null;
+	writer: string | null;
 }
 
 export interface BoardState {
