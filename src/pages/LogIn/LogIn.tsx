@@ -25,6 +25,7 @@ import axios from 'axios';
 import { axiosLoginInfo } from '../../reducer/accessToken';
 
 const LogIn = (): JSX.Element => {
+	// 'https://accounts.google.com/o/oauth2/auth?client_id=1026659521874-edp0dknss2j85jk6kjun2pne9mi3ik86.apps.googleusercontent.com&redirect_uri=http://trollo.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&access_type=offline'
 	const [email, onChangeEmail] = useInput<string>('');
 	const dispatch = useDispatch();
 	const history = useHistory();

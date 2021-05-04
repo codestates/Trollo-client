@@ -14,11 +14,11 @@ const App = (): JSX.Element => {
 		<ThemeProvider theme={Theme}>
 			<Global styles={GlobalStyle} />
 			<Switch>
-				<Redirect exact path="/" to="/Login" />
-				<Route path="/Login" component={Login} />
-				<Route path="/Register" component={Register} />
-				<Route exact path="/Board" component={Board} />
-				<Route path="/Board/:id" component={Content} />
+				<Redirect exact path="/" to="/login" />
+				<Route path="/login" component={Login} />
+				<Route path="/register" component={Register} />
+				<Route exact path="/board" component={Board} />
+				<Route path="/board/:id" component={Content} />
 				<Route path="/workspace" component={Worksapce} />
 			</Switch>
 		</ThemeProvider>
