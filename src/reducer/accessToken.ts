@@ -1,7 +1,6 @@
 import { RootStateOrAny } from 'react-redux';
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
-console.log('111', process.env.REACT_APP_SERVER_URL);
 interface LoginInfo {
 	[index: string]: string;
 }
@@ -33,7 +32,9 @@ export const axiosLoginInfo = (
 				authorizationCode,
 				email,
 			});
+
 			const data = response.data;
+
 			dispatch(getLoginInfoSuccess(data));
 		} catch (error) {
 			console.log(error);
