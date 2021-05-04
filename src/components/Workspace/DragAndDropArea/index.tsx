@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import {
 	AddTaskListBtn,
@@ -16,7 +16,10 @@ import {
 	taskSelector,
 	reorderTaskItem,
 	addTaskList,
+	axiosGetTaskDate,
+	axiosPostTaskDate,
 } from '../../../reducer/workspace';
+import { getLoginInfoSelector } from '../../../reducer/accessToken';
 
 export interface TaskListData {
 	title: string;
@@ -39,13 +42,23 @@ export interface TaskData {
 const DragAndDropArea = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const taskInitalData = useSelector(taskSelector);
-
-	// const [taskData, setTaskData] = useState<TaskData>(taskInitalData);
-
+	const { accessToken, LoginType } = useSelector(getLoginInfoSelector);
 	const [addBtnChangeForm, setAddBtnChangeForm] = useState<boolean>(false);
 	const [showTaskSetting, setShowTaskSetting] = useState<boolean>(false);
 	const [taskName, setTaskName] = useState<string>('');
 	const [title, onAddTitle, setTitle] = useInput<string>('');
+
+	useEffect(() => {
+		if (LoginType) {
+			dispatch(axiosGetTaskDate(accessToken, LoginType));
+		}
+	}, [LoginType]);
+
+	useEffect(() => {
+		if (LoginType) {
+			dispatch(axiosPostTaskDate(taskInitalData, accessToken, LoginType));
+		}
+	}, [taskInitalData]);
 
 	const onDragEnd = useCallback(
 		(result: DropResult) => {
@@ -90,18 +103,21 @@ const DragAndDropArea = (): JSX.Element => {
 					{provided => (
 						<div style={{ display: 'flex' }}>
 							<DragAndDropContainer ref={provided.innerRef}>
-								{taskInitalData.taskList.map((list, index) => (
-									<TaskList
-										key={`TaskList-${index}`}
-										taskList={list}
-										index={index}
-										setShowTaskSetting={setShowTaskSetting}
-										setTaskName={setTaskName}
-									/>
-								))}
+								{taskInitalData ? (
+									taskInitalData.taskList.map((list, index) => (
+										<TaskList
+											key={`TaskList-${index}`}
+											taskList={list}
+											index={index}
+											setShowTaskSetting={setShowTaskSetting}
+											setTaskName={setTaskName}
+										/>
+									))
+								) : (
+									<div>loading</div>
+								)}
 								{provided.placeholder}
 							</DragAndDropContainer>
-
 							{addBtnChangeForm ? (
 								<AddTaskListTitleInput
 									placeholder="Title"

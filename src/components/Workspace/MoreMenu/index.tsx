@@ -16,12 +16,13 @@ const MoreMenu = ({ type, index, itemIndex, taskName }: Props): JSX.Element => {
 
 	const onMoreMenu: MouseEventHandler<HTMLDivElement> = (e): void => {
 		e.stopPropagation();
+
 		setShowMoreMenu(!showMoreMenu);
 	};
 
 	const onDelete: MouseEventHandler<HTMLButtonElement> = (e): void => {
 		e.stopPropagation();
-
+		setShowMoreMenu(!showMoreMenu);
 		if (type === 'tasklist') {
 			dispatch(deleteTaskList(index));
 		}
