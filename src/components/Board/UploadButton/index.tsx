@@ -36,6 +36,7 @@ const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
 		if (title.trim() === '') {
 			return;
 		}
+
 		const authorization = `Bearer ${userAccessToken.accessToken}`;
 		const LoginType = userAccessToken.LoginType;
 

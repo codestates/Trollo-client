@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { BoardNotice, TableBody, TableContainer } from './styles';
+import { TableBody } from './styles';
 import { Table, TableHeader, Tr } from './styles';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 const TableWrapper = ({ headersName, children }: Props): JSX.Element => {
 	return (
-		<TableContainer>
+		<>
 			<Table>
 				<thead>
 					<tbody>
@@ -24,7 +24,7 @@ const TableWrapper = ({ headersName, children }: Props): JSX.Element => {
 					</tbody>
 				</thead>
 			</Table>
-		</TableContainer>
+		</>
 	);
 };
 

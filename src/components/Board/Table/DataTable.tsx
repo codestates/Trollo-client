@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTable, useGlobalFilter, usePagination } from 'react-table';
-import { Board } from '../../../type/type';
+import { getContentsData } from '../../../reducer/board';
+import { useSelector } from 'react-redux';
+import { BoardContent } from '../../../type/type';
 // import SearchBar from '../SearchBar';
 
 // interface Data {
@@ -15,10 +17,11 @@ interface DataTable {
 
 interface Props {
 	columns: any;
-	data: Board[];
+	data: BoardContent[];
 }
 
 const DataTable = ({ columns, data }: Props): JSX.Element => {
+	const contents = useSelector(getContentsData);
 	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
 		{ columns, data },
 		useGlobalFilter,
@@ -47,7 +50,7 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 							<tr {...row.getRowProps()} key={index}>
 								{row.cells.map((cell, index: number) => (
 									<td {...cell.getCellProps()} key={index}>
-										<Link to={`/Board/1`}>{cell.render('Cell')}</Link>
+										{cell.render('Cell')}
 									</td>
 								))}
 							</tr>

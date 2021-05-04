@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const TableContainer = styled.div`
+export const TableContainer1 = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -18,12 +18,6 @@ export const Table = styled.table`
 	height: 500px;
 	max-height: 800px;
 	border-collapse: collapse;
-`;
-
-export const BoardNotice = styled.div`
-	height: fit-content;
-	color: #8b919a;
-	text-align: left;
 `;
 
 export const TableBody = styled.tbody`

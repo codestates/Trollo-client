@@ -1,14 +1,8 @@
 import React from 'react';
-import TableWrapper from '../Structure/TableWrapper';
-import TableRow from '../Structure/TableRow';
-import TableColumn from '../Structure/Tablecolumn';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BoardState } from '../../../../type/type';
 // import { deletedContentAction } from '../../../../reducer/board';
 // import Pagination from '../../../Pagination';
-import { ColumnEmail, ColumnCreateAt, ColumnTitle, ColumnNumber } from './styles';
-
 const TableList = (): JSX.Element => {
 	// const dispatch = useDispatch();
 	const contents = useSelector((state: BoardState) => state.content);
@@ -41,37 +35,7 @@ const TableList = (): JSX.Element => {
 	// 	history.push(`/Board/Board/${id}`);
 	// };
 
-	return (
-		<>
-			<TableWrapper headersName={['번호', '제목', '작성자', '등록일']}>
-				{contents.map((content, index) => {
-					return (
-						<TableRow key={index}>
-							<ColumnNumber>
-								<TableColumn>{content.id}</TableColumn>
-							</ColumnNumber>
-							<ColumnTitle>
-								<TableColumn>
-									<Link to={`/Board/Board/${content.id}`}>{content.title}</Link>
-								</TableColumn>
-							</ColumnTitle>
-							<ColumnEmail>
-								<TableColumn>{content.email}</TableColumn>
-							</ColumnEmail>
-							<ColumnCreateAt>
-								<TableColumn>{content.createAt}</TableColumn>
-							</ColumnCreateAt>
-
-							{/* <TableColumn>{selectedContent === null ? (
-
-								)}</TableColumn> */}
-						</TableRow>
-					);
-				})}
-				{/* <Pagination postsPerPage={postsPerPage} totalPosts={contents.length} paginate={paginate} /> */}
-			</TableWrapper>
-		</>
-	);
+	return <></>;
 };
 
 export default TableList;

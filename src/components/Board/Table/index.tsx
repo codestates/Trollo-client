@@ -1,22 +1,22 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from './DataTable';
-import { BoardState } from '../../../type/type';
-import { BoardNotice } from './Structure/styles';
 import { getLoginInfoSelector } from '../../../reducer/accessToken';
-import { axiosBoardContents } from '../../../reducer/board';
+import { axiosBoardContents, getContentsData } from '../../../reducer/board';
+import { TableContainer, BoardNotice, TableListTitle } from './styles';
 
 const Table = (): JSX.Element => {
-	const contents = useSelector((state: BoardState) => state.content);
+	const contents = useSelector(getContentsData);
 	const userAccessToken = useSelector(getLoginInfoSelector);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const authorization = `Bearer ${userAccessToken.accessToken}`;
 		const LoginType = userAccessToken.LoginType;
-
 		dispatch(axiosBoardContents(authorization, LoginType));
 	}, []);
+
+	console.log(contents);
 
 	const columns = useMemo(
 		() => [
@@ -25,7 +25,7 @@ const Table = (): JSX.Element => {
 				Header: '번호',
 			},
 			{
-				accessor: 'email',
+				accessor: 'writer',
 				Header: '작성자',
 			},
 			{
@@ -33,7 +33,7 @@ const Table = (): JSX.Element => {
 				Header: '제목',
 			},
 			{
-				accessor: 'createAt',
+				accessor: 'createdAt',
 				Header: '등록일',
 			},
 		],
@@ -42,10 +42,14 @@ const Table = (): JSX.Element => {
 
 	return (
 		<>
-			<div>
+			(
+			<TableContainer>
 				<BoardNotice>📢 칸반보드를 공유하고 트롤로 회원들과 소통하는 공간입니다!</BoardNotice>
-				<DataTable columns={columns} data={contents} />
-			</div>
+				<TableListTitle>
+					<DataTable columns={columns} data={contents} />
+				</TableListTitle>
+			</TableContainer>
+			)
 		</>
 	);
 };
