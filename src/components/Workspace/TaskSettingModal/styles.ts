@@ -16,9 +16,8 @@ export const TaskSetupModal = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 1010;
-	width: 500px;
-	height: 600px;
-	padding: 20px;
+	width: 600px;
+	padding: 20px 50px;
 	background: #fff;
 	border-radius: 4px;
 `;
@@ -32,7 +31,6 @@ export const Section = styled.div`
 export const TitleSection = styled(Section)`
 	margin-top: 0;
 	padding: 0;
-	border-bottom: 1px solid #ddd;
 `;
 export const DescriptionSection = styled(Section)``;
 export const DateSection = styled(Section)``;
@@ -48,6 +46,11 @@ export const TitleInput = styled.input`
 	padding: 0 10px;
 	font-family: NanumSquareB;
 	font-size: 24px;
+
+	:hover {
+		padding: 0 9px;
+		border: 1px solid #ddd;
+	}
 `;
 
 export const DescriptionTextarea = styled.textarea`

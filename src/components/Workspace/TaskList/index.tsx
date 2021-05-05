@@ -10,11 +10,18 @@ import { addTask } from '../../../reducer/workspace';
 interface Props {
 	taskList: TaskListData;
 	index: number;
+	color: string;
 	setShowTaskSetting: (active: boolean) => void;
 	setTaskName: (active: string) => void;
 }
 
-const TaskList = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): JSX.Element => {
+const TaskList = ({
+	taskList,
+	index,
+	color,
+	setShowTaskSetting,
+	setTaskName,
+}: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const [title, onChangeTitle, setTitle] = useInput<string>('');
 
@@ -27,12 +34,10 @@ const TaskList = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): 
 		setTitle('');
 	}, [title]);
 
-	const colors = ['#F7BFB9', '#FDDDAA', '#FBEBA5', '#B5EFCE', '#ACE9DD', '#B7DCF4', '#DDC6E7'];
-
 	return (
 		<Draggable draggableId={`TaskList-${index}`} index={index}>
 			{provided => (
-				<Container ref={provided.innerRef} {...provided.draggableProps} color={colors[index]}>
+				<Container ref={provided.innerRef} {...provided.draggableProps} color={color}>
 					<TaskListTop {...provided.dragHandleProps}>
 						<Title>
 							<p>{taskList.title}</p>

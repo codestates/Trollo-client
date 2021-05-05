@@ -1,12 +1,20 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-	overflow-y: scroll;
+	overflow-y: auto;
 	width: 100%;
-	min-height: 300px;
-	max-height: 600px;
+	min-height: 250px;
+	max-height: 450px;
 	padding: 2px;
 	border-radius: 4px;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.2);
+		border-radius: 10px;
+	}
 `;
 
 export const TaskItemContainer = styled.div`

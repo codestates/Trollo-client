@@ -5,6 +5,7 @@ import { RootStateOrAny } from 'react-redux';
 
 export interface TaskListData {
 	title: string;
+	color: string;
 	tasks: string[];
 }
 export interface TaskItemData {
@@ -62,9 +63,10 @@ export const taskSlice = createSlice({
 			const current = currentTasks.splice(currentIndex, 1);
 			targetTasks.splice(targetIndex, 0, ...current);
 		},
-		addTaskList: (state, { payload }: PayloadAction<string>): void => {
+		addTaskList: (state, { payload }: PayloadAction<{ [index: string]: string }>): void => {
 			const taskListFrame: TaskListData = {
-				title: payload,
+				title: payload.title,
+				color: payload.color,
 				tasks: [],
 			};
 
@@ -117,9 +119,11 @@ export const taskSlice = createSlice({
 
 export const axiosGetTaskDate = () => {
 	return async (dispatch: Dispatch<{ payload: TaskData; type: string }>): Promise<void> => {
+		console.log('get start');
 		try {
 			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/workspace`);
 			dispatch(getTaskData(response.data));
+			console.log(response.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -129,6 +133,7 @@ export const axiosGetTaskDate = () => {
 export const axiosPostTaskDate = (data: TaskData) => {
 	return async (): Promise<void> => {
 		try {
+			console.log('Post????!?!!!?!', data);
 			await axios.post(`${process.env.REACT_APP_SERVER_URL}/workspace`, data);
 		} catch (error) {
 			console.log(error);

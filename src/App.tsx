@@ -13,35 +13,26 @@ import { getLoginInfoSelector, getLoginInfoSuccess } from './reducer/accessToken
 import axios from 'axios';
 
 const App = (): JSX.Element => {
-	const test = useSelector(getLoginInfoSelector);
+	const userSelector = useSelector(getLoginInfoSelector);
 	const dispatch = useDispatch();
 
-	axios.defaults.headers.withCredentials = true;
+	// axios.defaults.headers.withCredentials = true;
 
 	useEffect(() => {
-		const a = JSON.parse(window.localStorage.getItem('test') as string);
+		const userInfo = JSON.parse(window.localStorage.getItem('userInfo') as string);
 
-		axios.defaults.headers.common['authorization'] = `Bearer ${a.accessToken}`;
-		axios.defaults.headers.common['LoginType'] = a.LoginType;
+		if (userInfo) {
+			axios.defaults.headers.common['authorization'] = `Bearer ${userInfo.accessToken}`;
+			axios.defaults.headers.common['LoginType'] = userInfo.LoginType;
+		}
 
-		dispatch(getLoginInfoSuccess(a));
+		dispatch(getLoginInfoSuccess(userInfo));
 
-		axios.get(`${process.env.REACT_APP_SERVER_URL}/refresh`).then(res => console.log(res));
-
-		// 여기에 axios 헤더 다시 넣고
-		// 리프레쉬를 위한 로직 작성
-		// 1. 최초 로그인 요청 시 리덕스에 accesstoken, email, LoginType 상태 저장
-		// 2. 리덕스 내에서는 axios.default.headers 를 이용하여 accesstoken, LoginType을 기본 설정 값으로 바꿔줌
-		// 		default로 설정했기 때문에 axios 요청 시 따로 header를 안넣어도 됨
-		// 3. 최상단인 App에서 refresh 함수를 호출
-		// 4. 로컬스토리지에 저장된 값들을 전달해주고 스토리지 삭제.
-		// 5.
+		window.localStorage.removeItem('userInfo');
 	}, []);
 
 	window.onbeforeunload = () => {
-		// 1. 새로고침 시 Login 정보를 담은 리듀서를 가져와 accesstoken과 logintype을 가져옴
-		// 2. 가져온 값을 로컬 스토리지에 저장
-		window.localStorage.setItem('test', JSON.stringify(test));
+		window.localStorage.setItem('userInfo', JSON.stringify(userSelector));
 	};
 
 	return (
