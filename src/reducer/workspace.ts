@@ -115,13 +115,10 @@ export const taskSlice = createSlice({
 	},
 });
 
-export const axiosGetTaskDate = (accessToken: string, LoginType: string): any => {
+export const axiosGetTaskDate = () => {
 	return async (dispatch: Dispatch<{ payload: TaskData; type: string }>): Promise<void> => {
-		const bear = `Bearer ${accessToken}`;
 		try {
-			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/workspace`, {
-				headers: { authorization: bear, LoginType },
-			});
+			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/workspace`);
 			dispatch(getTaskData(response.data));
 		} catch (error) {
 			console.log(error);
@@ -129,14 +126,10 @@ export const axiosGetTaskDate = (accessToken: string, LoginType: string): any =>
 	};
 };
 
-export const axiosPostTaskDate = (data: TaskData, accessToken: string, LoginType: string): any => {
+export const axiosPostTaskDate = (data: TaskData) => {
 	return async (): Promise<void> => {
-		const bear = `Bearer ${accessToken}`;
-		console.log('axios start', data);
 		try {
-			await axios.post(`${process.env.REACT_APP_SERVER_URL}/workspace`, data, {
-				headers: { authorization: bear, LoginType },
-			});
+			await axios.post(`${process.env.REACT_APP_SERVER_URL}/workspace`, data);
 		} catch (error) {
 			console.log(error);
 		}

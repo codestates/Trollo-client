@@ -15,7 +15,11 @@ export const getLoginInfo = createSlice({
 	name: 'loginInfo',
 	initialState: LoginInfoState,
 	reducers: {
-		getLoginInfoSuccess: (state, { payload }: PayloadAction<LoginInfo>) => payload,
+		getLoginInfoSuccess: (state, { payload }: PayloadAction<LoginInfo>) => {
+			axios.defaults.headers.common['authorization'] = `Bearer ${payload.accessToken}`;
+			axios.defaults.headers.common['LoginType'] = payload.LoginType;
+			return payload;
+		},
 	},
 });
 

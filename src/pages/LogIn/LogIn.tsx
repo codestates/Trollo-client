@@ -56,14 +56,13 @@ const LogIn = (): JSX.Element => {
 		if (authorizationCode) {
 			if (email) {
 				dispatch(axiosLoginInfo('emailauth', authorizationCode, email));
-				history.push('/workspace');
 			} else if (scope) {
 				dispatch(axiosLoginInfo('loginOAuthGoogle', authorizationCode, email));
-				history.push('/workspace');
 			} else {
 				dispatch(axiosLoginInfo('loginOAuthGithub', authorizationCode, email));
-				history.push('/workspace');
 			}
+
+			history.push('/workspace');
 		}
 	}, []);
 
