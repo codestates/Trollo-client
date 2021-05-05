@@ -105,6 +105,9 @@ export const taskSlice = createSlice({
 			state.taskItem = { ...state.taskItem, ...taskDetailFrame };
 		},
 		deleteTaskList: (state, { payload: index }: PayloadAction<number>): void => {
+			if (state.taskList.length === 1) {
+				return;
+			}
 			state.taskList[index].tasks.forEach(itemId => delete state.taskItem[itemId]);
 			state.taskList.splice(index, 1);
 		},
