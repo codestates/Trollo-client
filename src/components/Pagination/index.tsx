@@ -4,7 +4,7 @@ import { PageLi, PageNext, PageUl, PageWrapper } from './styles';
 interface Props {
 	postsPerPage: number;
 	totalPosts: number;
-	paginate: any;
+	paginate: (n: number) => void;
 }
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }: Props): JSX.Element => {

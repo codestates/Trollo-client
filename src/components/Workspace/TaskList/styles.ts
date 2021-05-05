@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+	overflow: hidden;
 	position: relative;
 	min-width: 300px;
 	max-width: 300px;
+	max-height: 600px;
 	padding: 0 20px 20px;
 	margin-right: 30px;
-	border: 2px solid #ddd;
+	background-color: ${props => props.color};
+	border-radius: 4px;
 `;
 
 export const Title = styled.div`
@@ -31,7 +34,7 @@ export const AddTaskInput = styled.input`
 	padding: 0 10px;
 	font-family: NanumSquareB;
 	font-size: 17px;
-	border: 2px solid #ddd;
+	border-radius: 4px;
 `;
 
 export const TaskListTop = styled.div`

@@ -16,29 +16,27 @@ export const TaskSetupModal = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 1010;
-	width: 500px;
-	height: 600px;
-	padding: 20px;
+	width: 600px;
+	height: 500px;
+	padding: 40px 50px;
 	background: #fff;
 	border-radius: 4px;
 `;
 
 export const Section = styled.div`
 	width: 100%;
-	padding: 0 10px;
 	margin: 20px 0;
 `;
 
 export const TitleSection = styled(Section)`
 	margin-top: 0;
-	padding: 0;
-	border-bottom: 1px solid #ddd;
 `;
 export const DescriptionSection = styled(Section)``;
 export const DateSection = styled(Section)``;
 export const ChecklistSection = styled(Section)``;
 
 export const SectionTitle = styled.h3`
+	font-size: 15px;
 	margin: 10px 0;
 `;
 
@@ -48,15 +46,21 @@ export const TitleInput = styled.input`
 	padding: 0 10px;
 	font-family: NanumSquareB;
 	font-size: 24px;
+	border: 1px solid #ddd;
 `;
 
 export const DescriptionTextarea = styled.textarea`
 	resize: none;
 	width: 100%;
-	height: 70px;
+	height: 100px;
 	padding: 10px;
+	font-family: NanumSquareR;
+	font-size: 16px;
 	border: 1px solid #ddd;
-	border-radius: 3px;
+
+	::placeholder {
+		font-family: NanumSquareB;
+	}
 `;
 
 export const DateWrap = styled.div`
@@ -100,6 +104,7 @@ export const ChecklistInput = styled.input`
 	height: 30px;
 	padding: 0 10px;
 	margin-bottom: 10px;
+	font-family: NanumSquareR;
 	border: 1px solid #ddd;
 	border-radius: 3px;
 
@@ -110,6 +115,7 @@ export const ChecklistInput = styled.input`
 
 export const ChecklistWrap = styled.div`
 	display: flex;
+	margin-bottom: 5px;
 	align-items: center;
 
 	&.checked {
@@ -133,6 +139,7 @@ export const ChecklistCheckbox = styled.div`
 `;
 
 export const ChecklistItem = styled.div`
+	font-size: 14px;
 	.checked > & {
 		text-decoration: line-through;
 		color: #ddd;

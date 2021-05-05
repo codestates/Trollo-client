@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Dispatch } from 'react';
 import { RootStateOrAny } from 'react-redux';
 
 export interface TaskListData {
 	title: string;
+	color: string;
 	tasks: string[];
 }
 export interface TaskItemData {
@@ -39,28 +42,8 @@ export interface ChangeTaskDetailPayload {
 }
 
 const taskInitalState: TaskData = {
-	taskList: [
-		{
-			title: 'To do',
-			tasks: ['taskItem-1'],
-		},
-		{
-			title: 'Done',
-			tasks: [],
-		},
-	],
-	taskItem: {
-		'taskItem-1': {
-			title: '안겹치는 제목',
-			description: '타입스크립트 공부하기',
-			start_date: 'Start Date',
-			end_date: 'End Date',
-			checkList: [
-				{ content: '기본 타입 완벽 이해', checked: false },
-				{ content: '기본 타입 완벽 이해', checked: false },
-			],
-		},
-	},
+	taskList: [],
+	taskItem: {},
 };
 
 export const taskSlice = createSlice({
@@ -80,9 +63,10 @@ export const taskSlice = createSlice({
 			const current = currentTasks.splice(currentIndex, 1);
 			targetTasks.splice(targetIndex, 0, ...current);
 		},
-		addTaskList: (state, { payload }: PayloadAction<string>): void => {
+		addTaskList: (state, { payload }: PayloadAction<{ [index: string]: string }>): void => {
 			const taskListFrame: TaskListData = {
-				title: payload,
+				title: payload.title,
+				color: payload.color,
 				tasks: [],
 			};
 
@@ -121,6 +105,9 @@ export const taskSlice = createSlice({
 			state.taskItem = { ...state.taskItem, ...taskDetailFrame };
 		},
 		deleteTaskList: (state, { payload: index }: PayloadAction<number>): void => {
+			if (state.taskList.length === 1) {
+				return;
+			}
 			state.taskList[index].tasks.forEach(itemId => delete state.taskItem[itemId]);
 			state.taskList.splice(index, 1);
 		},
@@ -129,8 +116,33 @@ export const taskSlice = createSlice({
 			state.taskList[index].tasks.splice(itemIndex, 1);
 			delete state.taskItem[taskName];
 		},
+		getTaskData: (state, { payload }): void => payload,
 	},
 });
+
+export const axiosGetTaskDate = () => {
+	return async (dispatch: Dispatch<{ payload: TaskData; type: string }>): Promise<void> => {
+		console.log('get start');
+		try {
+			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/workspace`);
+			dispatch(getTaskData(response.data));
+			console.log(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+export const axiosPostTaskDate = (data: TaskData) => {
+	return async (): Promise<void> => {
+		try {
+			console.log('Post????!?!!!?!', data);
+			await axios.post(`${process.env.REACT_APP_SERVER_URL}/workspace`, data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
 
 export const {
 	reorderTaskList,
@@ -140,6 +152,7 @@ export const {
 	changeTaskDetail,
 	deleteTaskList,
 	deleteTaskItem,
+	getTaskData,
 } = taskSlice.actions;
 
 export const taskSelector = (state: RootStateOrAny): TaskData => state.TaskData;
