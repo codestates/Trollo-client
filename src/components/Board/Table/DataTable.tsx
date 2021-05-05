@@ -26,9 +26,10 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 		usePagination,
 	);
 
-	const onBoardDetail = (): any => {
+	const onBoardDetail = (index: number): any => {
 		console.log('id를 찾아줘');
-		history.push(`/board/${contents[0].id}`);
+		console.log(contents[index]);
+		history.push(`/board/${contents[index].id}`);
 	};
 
 	return (
@@ -50,9 +51,9 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 					{rows.map((row, index: number) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()} key={index}>
+							<tr {...row.getRowProps()} key={index} onClick={() => onBoardDetail(index)}>
 								{row.cells.map((cell, index: number) => (
-									<td {...cell.getCellProps()} key={index} onClick={onBoardDetail}>
+									<td {...cell.getCellProps()} key={index}>
 										{cell.render('Cell')}
 									</td>
 								))}
