@@ -5,7 +5,8 @@ import axios from 'axios';
 import { RootStateOrAny } from 'react-redux';
 
 export const ContentDetailInitialState: BoardContentDetail = {
-	board_id: null,
+	commentAll: null,
+	id: null,
 	writer: '',
 	title: '',
 	createdAt: '',

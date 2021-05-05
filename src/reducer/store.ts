@@ -1,4 +1,5 @@
 import { ContentDetailData } from './board_detail';
+import { CommentData } from './comment';
 import { getLoginInfo } from './accessToken';
 import { logger } from 'redux-logger';
 import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
@@ -19,6 +20,7 @@ export const reducer = combineReducers({
 	TaskData: taskSlice.reducer,
 	Boardcontents: Boardcontents.reducer,
 	ContentDetailData: ContentDetailData.reducer,
+	CommentData: CommentData.reducer,
 	// selectedContentSlice: selectedContentSlice.reducer,
 });
 
