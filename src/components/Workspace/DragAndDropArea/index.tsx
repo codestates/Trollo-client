@@ -48,15 +48,19 @@ const DragAndDropArea = (): JSX.Element => {
 	const [taskName, setTaskName] = useState<string>('');
 	const [title, onAddTitle, setTitle] = useInput<string>('');
 
-	if (LoginType) {
-		useEffect(() => {
-			dispatch(axiosGetTaskDate(accessToken, LoginType));
-		}, [LoginType]);
+	useEffect(() => {
+		if (LoginType) {
+			setTimeout(() => {
+				dispatch(axiosGetTaskDate());
+			}, 1000);
+		}
+	}, [LoginType]);
 
-		useEffect(() => {
-			dispatch(axiosPostTaskDate(taskInitalData, accessToken, LoginType));
-		}, [taskInitalData]);
-	}
+	useEffect(() => {
+		if (LoginType) {
+			dispatch(axiosPostTaskDate(taskInitalData));
+		}
+	}, [taskInitalData]);
 
 	const onDragEnd = useCallback(
 		(result: DropResult) => {

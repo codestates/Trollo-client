@@ -27,10 +27,12 @@ const TaskList = ({ taskList, index, setShowTaskSetting, setTaskName }: Props): 
 		setTitle('');
 	}, [title]);
 
+	const colors = ['#F7BFB9', '#FDDDAA', '#FBEBA5', '#B5EFCE', '#ACE9DD', '#B7DCF4', '#DDC6E7'];
+
 	return (
 		<Draggable draggableId={`TaskList-${index}`} index={index}>
 			{provided => (
-				<Container ref={provided.innerRef} {...provided.draggableProps}>
+				<Container ref={provided.innerRef} {...provided.draggableProps} color={colors[index]}>
 					<TaskListTop {...provided.dragHandleProps}>
 						<Title>
 							<p>{taskList.title}</p>
