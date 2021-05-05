@@ -5,7 +5,7 @@ import axios from 'axios';
 import { RootStateOrAny } from 'react-redux';
 
 export const CommentInitialState: CommentAllData = {
-	commentAll: null,
+	commentAll: [],
 };
 
 export const CommentData = createSlice({

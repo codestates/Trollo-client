@@ -1,36 +1,18 @@
-import { BoardContentDetail } from './../type/type';
+import { BoardContentDetail, CommentAll } from './../type/type';
 import { Dispatch } from 'react';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootStateOrAny } from 'react-redux';
 
 export const ContentDetailInitialState: BoardContentDetail = {
-	commentAll: null,
+	commentAll: [],
 	id: null,
 	writer: '',
 	title: '',
 	createdAt: '',
 	content: {
-		tasklist: [
-			{
-				tasklist_id: null,
-				title: '',
-				items: [
-					{
-						task_id: null,
-						title: '',
-						checklist: [
-							{
-								isChecked: false,
-								content: '',
-							},
-						],
-						start_date: '',
-						end_date: '',
-					},
-				],
-			},
-		],
+		taskList: [],
+		taskItem: {},
 	},
 };
 
@@ -40,10 +22,21 @@ export const ContentDetailData = createSlice({
 	reducers: {
 		readContent: (state, { payload }: PayloadAction<BoardContentDetail>) => payload,
 		deleteContent: (state, { payload }: PayloadAction<BoardContentDetail>) => payload,
+		addCommentAll: (state, { payload }: PayloadAction<CommentAll>) => {
+			state.commentAll.push(payload);
+		},
+		deleteCommentAll: (state, { payload }: PayloadAction<number>) => {
+			state.commentAll.splice(payload, 1);
+		},
 	},
 });
 
-export const { readContent, deleteContent } = ContentDetailData.actions;
+export const {
+	readContent,
+	deleteContent,
+	addCommentAll,
+	deleteCommentAll,
+} = ContentDetailData.actions;
 
 export const axiosContentDetail = (
 	authorization: string,
