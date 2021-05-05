@@ -9,13 +9,13 @@ import { useDispatch } from 'react-redux';
 import { logoutAction } from '../../../reducer/authorization';
 
 const Navbar = (): JSX.Element => {
-	const [showMyPage, setShowMyPage] = useState(false);
+	const [showMyPage, setShowMyPage] = useState<boolean>(false);
 	// const { Workspace } = useParams<{ Workspace?: string }>();
 	const dispatch = useDispatch();
 	const history = useHistory();
 	// console.log(Workspace);
 
-	const onClickMyPage = useCallback(() => {
+	const onClickMyPage = useCallback((): void => {
 		setShowMyPage(prev => !prev);
 	}, []);
 
@@ -38,15 +38,15 @@ const Navbar = (): JSX.Element => {
 					<Logo src={PageLogo} />
 				</div>
 				<BoardOrWorkspace>
-					<Link to="/board">Board</Link>
+					<Link to="/board">게시판</Link>
 					<Divider>|</Divider>
-					<Link to="/workspace">Workspace</Link>
+					<Link to="/workspace">마이페이지</Link>
 				</BoardOrWorkspace>
 				<span onClick={onClickMyPage}>
 					<ProfileImg
 						src={gravatar.url('trollo@gmail.com', { s: '32px', d: 'retro' })}
 						alt={'trollo'}
-					></ProfileImg>
+					/>
 					{showMyPage && (
 						<Menu style={{ right: 24, top: 48 }} show={showMyPage} onCloseModal={onCloseMyPage}>
 							<div>trollo@gmail.com</div>
