@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import {
 	AddTaskListBtn,
 	AddTaskListTitleInput,
 	DragAndDropContainer,
+	Loading,
 	Trash,
-	TrashContainer,
+	TrashIcon,
 	WorksapceContainer,
 } from './styles';
 import useInput from '../../../hooks/useInput';
-
 import TaskList from '../TaskList';
 import TaskSettingModal from '../TaskSettingModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,9 +21,7 @@ import {
 	axiosGetTaskDate,
 	axiosPostTaskDate,
 	deleteTaskList,
-	deleteTaskItem,
 } from '../../../reducer/workspace';
-import { getLoginInfoSelector } from '../../../reducer/accessToken';
 
 export interface TaskListData {
 	title: string;
@@ -52,22 +50,24 @@ const DragAndDropArea = (): JSX.Element => {
 	const [title, onAddTitle, setTitle] = useInput<string>('');
 	const [count, setCount] = useState<number>(Math.floor(Math.random() * 10));
 
+	const isLoadDataSuccess = taskInitalData.taskList.length;
+
 	useEffect(() => {
 		setTimeout(() => {
 			dispatch(axiosGetTaskDate());
-		}, 1000);
+		}, 100);
 	}, []);
 
 	useEffect(() => {
-		setTimeout(() => {
+		if (taskInitalData.taskList.length) {
 			dispatch(axiosPostTaskDate(taskInitalData));
-		}, 1000);
+		}
 	}, [taskInitalData]);
 
 	const onDragEnd = useCallback(
-		(result: DropResult) => {
+		(result: DropResult): void => {
 			console.log(result);
-			const { type, source, destination } = result;
+			const { type, source, destination, draggableId } = result;
 			if (!destination) {
 				return;
 			}
@@ -94,7 +94,7 @@ const DragAndDropArea = (): JSX.Element => {
 		[taskInitalData],
 	);
 
-	const randomColor = () => {
+	const randomColor = (): string => {
 		setCount(count + 1);
 		const colors = [
 			'#FFD7AF',
@@ -139,10 +139,10 @@ const DragAndDropArea = (): JSX.Element => {
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="TaskList" type="TaskList" direction="horizontal">
 					{provided => (
-						<div style={{ display: 'flex' }}>
-							<DragAndDropContainer ref={provided.innerRef}>
-								{taskInitalData ? (
-									taskInitalData.taskList.map((list, index) => (
+						<DragAndDropContainer ref={provided.innerRef}>
+							{isLoadDataSuccess ? (
+								<div style={{ display: 'flex' }}>
+									{taskInitalData.taskList.map((list, index) => (
 										<TaskList
 											key={`TaskList-${index}`}
 											taskList={list}
@@ -151,31 +151,35 @@ const DragAndDropArea = (): JSX.Element => {
 											setShowTaskSetting={setShowTaskSetting}
 											setTaskName={setTaskName}
 										/>
-									))
-								) : (
-									<div>loading</div>
-								)}
-								{provided.placeholder}
-								{addBtnChangeForm ? (
-									<AddTaskListTitleInput
-										placeholder="Title"
-										value={title}
-										maxLength={25}
-										onChange={onAddTitle}
-										onKeyPress={e => e.key === 'Enter' && onAddTaskList()}
-										onBlur={onAddTaskList}
-									/>
-								) : (
-									<AddTaskListBtn onClick={() => setAddBtnChangeForm(true)}>
-										+ Add TaskList
-									</AddTaskListBtn>
-								)}
-							</DragAndDropContainer>
-						</div>
+									))}
+									{addBtnChangeForm ? (
+										<AddTaskListTitleInput
+											placeholder="Title"
+											value={title}
+											maxLength={25}
+											onChange={onAddTitle}
+											onKeyPress={e => e.key === 'Enter' && onAddTaskList()}
+											onBlur={onAddTaskList}
+										/>
+									) : (
+										<AddTaskListBtn onClick={() => setAddBtnChangeForm(true)}>
+											+ Add TaskList
+										</AddTaskListBtn>
+									)}
+									<Droppable droppableId="test" type="TaskList">
+										{provided => (
+											<Trash ref={provided.innerRef}>
+												<TrashIcon />
+											</Trash>
+										)}
+									</Droppable>
+								</div>
+							) : (
+								<Loading>Loading...</Loading>
+							)}
+							{provided.placeholder}
+						</DragAndDropContainer>
 					)}
-				</Droppable>
-				<Droppable droppableId="test" type="TaskList">
-					{provided => <Trash ref={provided.innerRef}>{provided.placeholder}</Trash>}
 				</Droppable>
 			</DragDropContext>
 

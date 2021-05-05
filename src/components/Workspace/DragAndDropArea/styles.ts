@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { BiTrash } from 'react-icons/bi';
 
 export const WorksapceContainer = styled.div`
 	overflow: hidden;
@@ -12,6 +13,7 @@ export const DragAndDropContainer = styled.div`
 	width: 100%;
 	height: calc(100vh - 56px);
 	padding: 40px;
+
 	background: linear-gradient(
 		to right,
 		#be93c5,
@@ -45,25 +47,40 @@ export const AddTaskListTitleInput = styled.input`
 	border-radius: 4px;
 `;
 
-export const TrashContainer = styled.div`
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 200px;
-`;
-
 export const Trash = styled.div`
 	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	width: 200px;
+	width: 300px;
 	height: 200px;
-	background-color: #ddd;
+
 	&:hover {
-		background-color: red;
+		background-color: rgba(0, 0, 0, 0.2);
 	}
-	& * {
-		opacity: 0;
-	}
+`;
+
+export const TrashIcon = styled(BiTrash)`
+	width: 100px;
+	height: 100px;
+	color: #333;
+`;
+
+export const Loading = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100vh;
+	font-family: NanumSquareEB;
+	font-size: 25px;
+	color: #fff;
+	background-color: rgba(0, 0, 0, 0.3);
 `;

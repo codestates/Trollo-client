@@ -121,14 +121,15 @@ const TaskSettingModal = ({ taskName, setShowTaskSetting }: Props): JSX.Element 
 					<TitleInput placeholder="제목" value={taskTitle} onChange={onChangeTitle} />
 				</TitleSection>
 				<DescriptionSection>
-					<SectionTitle>내용</SectionTitle>
+					{/* <SectionTitle>내용</SectionTitle> */}
 					<DescriptionTextarea
 						value={taskDescription}
+						placeholder="내용"
 						onChange={e => setTaskDescription(e.target.value)}
 					/>
 				</DescriptionSection>
 				<DateSection>
-					<SectionTitle>기간</SectionTitle>
+					{/* <SectionTitle>기간</SectionTitle> */}
 					<DateWrap>
 						<DateForm>
 							<p>Start date</p>
