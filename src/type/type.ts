@@ -55,6 +55,7 @@ export interface CommentChildren {
 
 export interface TaskListData {
 	title: string;
+	color: string;
 	tasks: string[];
 }
 

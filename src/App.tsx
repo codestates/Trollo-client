@@ -11,6 +11,7 @@ import Worksapce from './pages/Workspace';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLoginInfoSelector, getLoginInfoSuccess } from './reducer/accessToken';
 import axios from 'axios';
+import ViewWorkspace from './components/Workspace/ViewWorkspace';
 
 const App = (): JSX.Element => {
 	const userSelector = useSelector(getLoginInfoSelector);
@@ -45,6 +46,10 @@ const App = (): JSX.Element => {
 				<Route exact path="/board" component={Board} />
 				<Route path="/board/:id" component={Content} />
 				<Route path="/workspace" component={Worksapce} />
+<<<<<<< HEAD
+=======
+				<Route path="/view" component={ViewWorkspace} />
+>>>>>>> workspace
 			</Switch>
 		</ThemeProvider>
 	);

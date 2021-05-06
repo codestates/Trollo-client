@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import { TaskListData } from '../DragAndDropArea';
 import TaskItem from '../TaskItem';
-import { Container, Title, AddTaskInput, TaskListTop } from './styles';
+import { TaskListContainer, Title, AddTaskInput, TaskListTop } from './styles';
 import { addTask } from '../../../reducer/workspace';
 
 interface Props {
@@ -37,7 +37,7 @@ const TaskList = ({
 	return (
 		<Draggable draggableId={`TaskList-${index}`} index={index}>
 			{provided => (
-				<Container ref={provided.innerRef} {...provided.draggableProps} color={color}>
+				<TaskListContainer ref={provided.innerRef} {...provided.draggableProps} color={color}>
 					<TaskListTop {...provided.dragHandleProps}>
 						<Title>
 							<p>{taskList.title}</p>
@@ -56,7 +56,7 @@ const TaskList = ({
 						setShowTaskSetting={setShowTaskSetting}
 						setTaskName={setTaskName}
 					/>
-				</Container>
+				</TaskListContainer>
 			)}
 		</Draggable>
 	);

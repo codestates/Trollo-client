@@ -23,7 +23,7 @@ import {
 } from './styles';
 import { getLoginInfoSelector } from '../../reducer/accessToken';
 import Comment from '../Comment';
-import DragAndDropArea from '../Workspace/DragAndDropArea';
+import ViewWorkspace from '../Workspace/ViewWorkspace';
 
 const BoardDetail = (): JSX.Element => {
 	const history = useHistory();
@@ -71,7 +71,7 @@ const BoardDetail = (): JSX.Element => {
 				</UpdataButton>
 			) : null}
 			<ContentMainBoard>
-				<DragAndDropArea />
+				<ViewWorkspace taskData={contentData.content} />
 			</ContentMainBoard>
 			<Comment commentAll={contentData.commentAll} />
 		</Container>

@@ -25,6 +25,7 @@ import {
 
 export interface TaskListData {
 	title: string;
+	color: string;
 	tasks: string[];
 }
 export interface TaskItemData {
@@ -73,7 +74,7 @@ const DragAndDropArea = (): JSX.Element => {
 			}
 
 			if (type === 'TaskList') {
-				if (destination.droppableId === 'test') {
+				if (destination.droppableId === 'Trash') {
 					dispatch(deleteTaskList(source.index));
 				} else {
 					dispatch(reorderTaskList({ startIndex: source.index, endIndex: destination.index }));
@@ -166,7 +167,7 @@ const DragAndDropArea = (): JSX.Element => {
 											+ Add TaskList
 										</AddTaskListBtn>
 									)}
-									<Droppable droppableId="test" type="TaskList">
+									<Droppable droppableId="Trash" type="TaskList">
 										{provided => (
 											<Trash ref={provided.innerRef}>
 												<TrashIcon />
