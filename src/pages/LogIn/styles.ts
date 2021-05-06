@@ -1,6 +1,13 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div``;
+export const Background = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+`;
 
 export const PageContainer = styled.div`
 	display: flex;
@@ -8,14 +15,6 @@ export const PageContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 800px;
-
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-image: url('../../images/Login_background.png')
-	background-size: cover;
 `;
 
 export const LoginContainer = styled.div`
@@ -86,6 +85,10 @@ export const Button = styled.button`
 	font-weight: 900;
 	border-radius: 5px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+	&: hover {
+		background: #097eff;
+	}
 `;
 
 export const OAuthContainer = styled.div`
@@ -104,6 +107,7 @@ export const WithOAuth = styled.div`
 
 export const Line = styled.hr`
 	width: 150px;
+	background-color: #777777;
 `;
 
 export const Or = styled.p`
@@ -125,6 +129,9 @@ export const GoogleLogin = styled.button`
 	font-weight: 900;
 	border-radius: 5px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	&: hover {
+		color: #53585f;
+	}
 `;
 
 export const GithubLogin = styled.button`
@@ -141,6 +148,9 @@ export const GithubLogin = styled.button`
 	font-weight: 900;
 	border-radius: 5px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	&: hover {
+		background: #53585f;
+	}
 `;
 
 export const Error = styled.div``;
@@ -148,5 +158,6 @@ export const Error = styled.div``;
 export const Success = styled.div``;
 
 export const LoginOrRegister = styled.p`
+	color: #777777;
 	margin-bottom: 20px;
 `;
