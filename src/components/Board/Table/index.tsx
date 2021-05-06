@@ -19,10 +19,6 @@ const Table = (): JSX.Element => {
 	const columns = useMemo(
 		() => [
 			{
-				accessor: 'id',
-				Header: '번호',
-			},
-			{
 				accessor: 'writer',
 				Header: '작성자',
 			},
@@ -40,14 +36,12 @@ const Table = (): JSX.Element => {
 
 	return (
 		<>
-			(
 			<TableContainer>
 				<BoardNotice>📢 칸반보드를 공유하고 트롤로 회원들과 소통하는 공간입니다!</BoardNotice>
 				<TableListTitle>
 					<DataTable columns={columns} data={contents} />
 				</TableListTitle>
 			</TableContainer>
-			)
 		</>
 	);
 };

@@ -4,6 +4,7 @@ import { getContentsData } from '../../../reducer/board';
 import { useSelector } from 'react-redux';
 import { BoardContent } from '../../../type/type';
 import { useHistory } from 'react-router';
+import { Table, TableHeaderWrapper, TableRow, TableBody, TableHeader } from './styles';
 // import SearchBar from '../SearchBar';
 
 interface DataTable {
@@ -18,7 +19,6 @@ interface Props {
 
 const DataTable = ({ columns, data }: Props): JSX.Element => {
 	const contents = useSelector(getContentsData);
-	console.log('contents', contents);
 	const history = useHistory();
 	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
 		{ columns, data },
@@ -27,43 +27,47 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 	);
 
 	const onBoardDetail = (index: number): any => {
-		console.log('id를 찾아줘');
-		console.log(contents[index]);
 		history.push(`/board/${contents[index].id}`);
 	};
 
 	return (
 		<>
 			{/* <SearchBar onSubmit= /> */}
-			<table {...getTableProps()}>
-				<thead>
+			<Table {...getTableProps()}>
+				<TableHeaderWrapper>
 					{headerGroups.map((headerGroup, index: number) => (
-						<tr {...headerGroup.getHeaderGroupProps()} key={index}>
+						<TableHeader {...headerGroup.getHeaderGroupProps()} key={index}>
 							{headerGroup.headers.map((column, index: number) => (
 								<th {...column.getHeaderProps()} key={index}>
 									{column.render('Header')}
 								</th>
 							))}
-						</tr>
+						</TableHeader>
 					))}
-				</thead>
-				<tbody {...getTableBodyProps()}>
+				</TableHeaderWrapper>
+				<TableBody {...getTableBodyProps()}>
 					{rows.map((row, index: number) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()} key={index} onClick={() => onBoardDetail(index)}>
-								{row.cells.map((cell, index: number) => (
-									<td {...cell.getCellProps()} key={index}>
-										{cell.render('Cell')}
-									</td>
-								))}
-							</tr>
+							<TableRow {...row.getRowProps()} key={index} onClick={() => onBoardDetail(index)}>
+								<td>{contents[index].writer.split('@')[0]}</td>
+								<td>{contents[index].title}</td>
+								<td>{contents[index].createdAt.split('T')[0]}</td>
+							</TableRow>
 						);
 					})}
-				</tbody>
-			</table>
+				</TableBody>
+			</Table>
 		</>
 	);
 };
 
 export default DataTable;
+
+{
+	/* {row.cells.map((cell, index: number) => (
+	<td {...cell.getCellProps()} key={index}>
+		{cell.render('Cell')}
+	</td>
+))} */
+}
