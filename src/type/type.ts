@@ -1,11 +1,11 @@
 import { ContentDetailData } from './../reducer/board_detail';
 export interface BoardContent {
-	createdAt: string | null;
+	createdAt: string;
 	id: number | null;
-	title: string | null;
-	updatedAt: string | null;
+	title: string;
+	updatedAt: string;
 	user_id: number | null;
-	writer: string | null;
+	writer: string;
 }
 
 export interface BoardState {

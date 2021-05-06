@@ -79,16 +79,3 @@ export const selectedContentSlice = createSlice({
 });
 
 export const { select: selectContentAction } = selectedContentSlice.actions;
-
-// edit: (state, { payload }: PayloadAction<{ id: string; title: string }>) => {
-// 	const index = state.findIndex(content => content.id === payload.id);
-// 	if (index === -1) {
-// 		state[index].title = payload.title;
-// 	}
-// },
-// remove: (state, { payload }: PayloadAction<{ id: string }>) => {
-// 	const index = state.findIndex(content => content.id === payload.id);
-// 	if (index === -1) {
-// 		state.splice(index, 1);
-// 	}
-// },

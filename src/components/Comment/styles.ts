@@ -4,17 +4,18 @@ export const CommentsWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 50px;
+	margin-top: 100px;
 `;
 
 export const CommnetCount = styled.div`
-	width: 700px;
 	margin-bottom: 16px;
-	font-weight: 600;
-	font-size: 16px;
+	width: 100%;
+	font-family: NanumSquareEB;
+	font-size: 20px;
+	text-align: left;
 `;
 
-export const CommentForm = styled.form`
+export const CommentArea = styled.div`
 	width: 700px;
 	height: 100px;
 	margin-bottom: 80px;
@@ -23,7 +24,7 @@ export const CommentForm = styled.form`
 	border-radius: 4px;
 `;
 
-export const CommentTextarea = styled.input`
+export const CommentInput = styled.input`
 	display: inline-block;
 	resize: none;
 	width: 100%;
@@ -32,22 +33,34 @@ export const CommentTextarea = styled.input`
 	font-size: 18px;
 `;
 
+export const InfoData = styled.div`
+	display: flex;
+	width: 700px;
+	text-align: left;
+`;
+
+export const CommentInfo = styled.div`
+	margin: 3px 0 0 12px;
+	text-align: left;
+`;
+
 export const CommentUpdateButton = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-top: 74px;
 	width: 684px;
+	font-family: NanumSquareEB;
 `;
 
 export const GobackButton = styled.button`
 	margin-left: -16px;
-	width: 100px;
+	width: 112px;
 	height: 32px;
 	color: #777777;
 	border-radius: 5px;
 	border: 0.5px solid #777777;
 	background: transparent;
-	font-weight: 500;
+	font-family: NanumSquareEB;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 	text-align: center;
 `;
@@ -72,24 +85,15 @@ export const CommentDetail = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 20px;
+	margin: 20px 0 30px 0;
 	width: 700px;
+	height: 120px;
 	border-bottom: 0.5px solid #e9e9e9;
-	text-align: left;
-`;
-
-export const ContentOfComment = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	width: 700px;
-	margin: 0 auto;
-	text-align: left;
 `;
 
 export const CommentUserProfile = styled.img`
 	border-radius: 100%;
-	height: 40px;
+	height: 48px;
 `;
 
 export const CommentData = styled.div`
@@ -102,39 +106,22 @@ export const CommentData = styled.div`
 `;
 
 export const CommentUserId = styled.div`
-	margin-bottom: 8px;
-	width: 700px;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 4px;
 	color: #3c3c3c;
 	font-size: 16px;
-	font-weight: 600;
+	font-family: NanumSquareEB;
 `;
 
-export const Comment = styled.div`
-	display: flex;
-	margin-right: 52px;
-	width: 650px;
-	text-align: left;
-`;
-
-export const CommentOther = styled.div`
-	margin-bottom: 40px;
-	width: 590px;
+export const CommentCreatedAt = styled.span`
 	font-size: 14px;
+	color: #777777;
 `;
 
 export const AddCommentChildren = styled.span`
 	background-color: transparent;
 	margin-right: 4px;
-`;
-
-export const CommentCreatedAt = styled.span`
-	margin: 0 4px 0 12px;
-	color: #777777;
-`;
-
-export const CommentChildren = styled.div`
-	display: flex;
-	flex-direction: column;
 `;
 
 export const AddButtonWrapper = styled.span`
@@ -149,9 +136,16 @@ export const AddButtonWrapper = styled.span`
 `;
 
 export const DeleteComment = styled.div`
-	background-color: transparent;
+	background-color: none;
+	margin-left: 4px;
 	color: #ea092e;
 	cursor: pointer;
+`;
+
+export const ShowComment = styled.div`
+	margin: 24px 0 34px 0;
+	width: 100%;
+	font-size: 20px;
 `;
 
 export const Children = styled.div`

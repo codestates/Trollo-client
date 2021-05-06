@@ -22,12 +22,8 @@ import {
 	ContentEdit,
 } from './styles';
 import { getLoginInfoSelector } from '../../reducer/accessToken';
-import FakeBoard from '../../images/FakeBoard.png';
 import Comment from '../Comment';
 import DragAndDropArea from '../Workspace/DragAndDropArea';
-// interface Props {
-//     match: number,
-// }
 
 const BoardDetail = (): JSX.Element => {
 	const history = useHistory();
