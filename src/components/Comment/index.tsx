@@ -25,12 +25,14 @@ import { addCommentAll, deleteCommentAll, getContentDetailData } from '../../red
 import { CommentAll } from '../../type/type';
 import gravatar from 'gravatar';
 import { HiOutlineTrash } from 'react-icons/hi';
+import { useHistory } from 'react-router-dom';
 
 const Comment = ({ commentAll }: { commentAll: CommentAll[] }): JSX.Element => {
 	const dispatch = useDispatch();
 	const [comment, onChangeComment, setComment] = useInput<string>('');
 	const userInfo = useSelector(getLoginInfoSelector);
 	const { id } = useParams<{ id?: string }>();
+	const history = useHistory();
 	const commentAccessToken = useSelector(getLoginInfoSelector);
 	const authorization = `Bearer ${commentAccessToken.accessToken}`;
 	const contentData = useSelector(getContentDetailData);
@@ -61,6 +63,10 @@ const Comment = ({ commentAll }: { commentAll: CommentAll[] }): JSX.Element => {
 		setComment('');
 	};
 
+	const onGoback = () => {
+		history.push('/board');
+	};
+
 	const onDeleteComment = (index: number): void => {
 		const comment_id = commentAll[index]._id;
 		dispatch(axiosDeleteComment(authorization, LoginType, comment_id, board_id));
@@ -73,7 +79,7 @@ const Comment = ({ commentAll }: { commentAll: CommentAll[] }): JSX.Element => {
 			<CommentArea>
 				<CommentInput value={comment} onChange={onChangeComment} placeholder="댓글을 작성하세요" />
 				<CommentUpdateButton>
-					<GobackButton>목록으로 돌아가기</GobackButton>
+					<GobackButton onClick={onGoback}>목록으로 돌아가기</GobackButton>
 					<UploadContentButton onClick={onCommentSubmit}>댓글 등록</UploadContentButton>
 				</CommentUpdateButton>
 			</CommentArea>

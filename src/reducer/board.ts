@@ -29,15 +29,10 @@ export const Boardcontents = createSlice({
 
 export const { readContents, addContent } = Boardcontents.actions;
 
-export const axiosBoardContents = (authorization: string, LoginType: string) => {
+export const axiosBoardContents = () => {
 	return async (dispatch: Dispatch<{ payload: BoardContent[]; type: string }>): Promise<void> => {
 		try {
-			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/board`, {
-				headers: {
-					authorization,
-					LoginType,
-				},
-			});
+			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/board`);
 
 			const data = response.data.boardList;
 			dispatch(readContents(data));
@@ -47,19 +42,10 @@ export const axiosBoardContents = (authorization: string, LoginType: string) => 
 	};
 };
 
-export const axiosAddContent = (title: string, authorization: string, LoginType: string) => {
+export const axiosAddContent = (title: string) => {
 	return async (dispatch: Dispatch<{ payload: BoardContent[]; type: string }>): Promise<void> => {
 		try {
-			const response = await axios.post(
-				`${process.env.REACT_APP_SERVER_URL}/board`,
-				{ title },
-				{
-					headers: {
-						authorization,
-						LoginType,
-					},
-				},
-			);
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/board`, { title });
 			const data = response.data.boardList;
 			dispatch(addContent(data));
 		} catch (error) {

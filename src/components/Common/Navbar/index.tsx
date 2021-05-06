@@ -1,18 +1,28 @@
 import React, { useState, useCallback, MouseEventHandler } from 'react';
-import { BoardOrWorkspace, Divider, Header, Logo, LogoutButton, ProfileImg } from './styles';
+import {
+	BoardOrWorkspace,
+	Divider,
+	Header,
+	HeaderRouting,
+	Logo,
+	LogoutButton,
+	ProfileImg,
+} from './styles';
 import PageLogo from '../../../images/PageLogo.png';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import Menu from '../Menu/index';
 import gravatar from 'gravatar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutAction } from '../../../reducer/authorization';
+import { getLoginInfoSelector } from '../../../reducer/accessToken';
 
 const Navbar = (): JSX.Element => {
 	const [showMyPage, setShowMyPage] = useState<boolean>(false);
 	// const { Workspace } = useParams<{ Workspace?: string }>();
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const userInfo = useSelector(getLoginInfoSelector);
 	// console.log(Workspace);
 
 	const onClickMyPage = useCallback((): void => {
@@ -31,16 +41,24 @@ const Navbar = (): JSX.Element => {
 		alert('정상적으로 로그아웃 되었습니다.');
 	};
 
+	const onGoWorkspace = () => {
+		history.push('/workspace');
+	};
+
+	const onGoBoard = () => {
+		history.push('/board');
+	};
+
 	return (
 		<>
 			<Header>
-				<div>
-					<Logo src={PageLogo} />
+				<div onClick={onGoWorkspace}>
+					<Logo src={PageLogo} style={{ cursor: 'pointer' }} />
 				</div>
 				<BoardOrWorkspace>
-					<Link to="/board">게시판</Link>
+					<HeaderRouting onClick={onGoBoard}>게시판</HeaderRouting>
 					<Divider>|</Divider>
-					<Link to="/workspace">마이페이지</Link>
+					<HeaderRouting onClick={onGoWorkspace}>마이페이지</HeaderRouting>
 				</BoardOrWorkspace>
 				<span onClick={onClickMyPage}>
 					<ProfileImg
@@ -49,7 +67,7 @@ const Navbar = (): JSX.Element => {
 					/>
 					{showMyPage && (
 						<Menu style={{ right: 24, top: 48 }} show={showMyPage} onCloseModal={onCloseMyPage}>
-							<div>trollo@gmail.com</div>
+							<div>{userInfo.email}</div>
 							<LogoutButton onClick={onLogout}>Sign out</LogoutButton>
 						</Menu>
 					)}

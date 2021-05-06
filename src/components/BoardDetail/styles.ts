@@ -64,7 +64,6 @@ export const ContentDelete = styled.span`
 	cursor: pointer;
 `;
 export const ContentMainBoard = styled.div`
-	margin-top: 70px;
-	width: 800px;
+	width: 100%;
 	border-bottom: 0.5px solid #e9e9e9;
 `;

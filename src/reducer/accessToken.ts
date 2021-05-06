@@ -30,13 +30,13 @@ export const axiosLoginInfo = (
 ) => {
 	return async (dispatch: Dispatch<{ payload: LoginInfo; type: string }>): Promise<void> => {
 		try {
+			axios.defaults.headers.withCredentials = true;
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/${endpoint}`, {
 				authorizationCode,
 				email,
 			});
 
 			const data = response.data;
-			console.log(data);
 			axios.defaults.headers.common['authorization'] = `Bearer ${data.accessToken}`;
 			axios.defaults.headers.common['LoginType'] = data.LoginType;
 

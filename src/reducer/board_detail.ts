@@ -38,21 +38,12 @@ export const {
 	deleteCommentAll,
 } = ContentDetailData.actions;
 
-export const axiosContentDetail = (
-	authorization: string,
-	LoginType: string,
-	board_id: number,
-): any => {
+export const axiosContentDetail = (board_id: number): any => {
 	return async (
 		dispatch: Dispatch<{ payload: BoardContentDetail; type: string }>,
 	): Promise<void> => {
 		try {
-			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/board/${board_id}`, {
-				headers: {
-					authorization,
-					LoginType,
-				},
-			});
+			const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/board/${board_id}`);
 			const data = response.data;
 			console.log('상세페이지 응답 데이터', data);
 			dispatch(readContent(data));
@@ -62,21 +53,12 @@ export const axiosContentDetail = (
 	};
 };
 
-export const axiosContentDetailDelete = (
-	authorization: string,
-	LoginType: string,
-	board_id: number,
-): any => {
+export const axiosContentDetailDelete = (board_id: number): any => {
 	return async (
 		dispatch: Dispatch<{ payload: BoardContentDetail; type: string }>,
 	): Promise<void> => {
 		try {
-			const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/board/${board_id}`, {
-				headers: {
-					authorization,
-					LoginType,
-				},
-			});
+			const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/board/${board_id}`);
 			const data = response.data;
 			dispatch(deleteContent(data));
 		} catch (error) {

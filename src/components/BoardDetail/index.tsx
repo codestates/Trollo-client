@@ -28,23 +28,22 @@ const BoardDetail = (): JSX.Element => {
 	const history = useHistory();
 	const contentData = useSelector(getContentDetailData);
 	const userInfo = useSelector(getLoginInfoSelector);
-	const contentAccessToken = useSelector(getLoginInfoSelector);
 
 	const dispatch = useDispatch();
 
 	const { id } = useParams<{ id?: string }>();
-	const authorization = `Bearer ${contentAccessToken.accessToken}`;
-	const LoginType = contentAccessToken.LoginType;
 	const board_id = Number(id);
 	const writer = contentData.writer?.split('@')[0];
 	const date = contentData.createdAt?.split('T')[0];
 
 	useEffect(() => {
-		dispatch(axiosContentDetail(authorization, LoginType, board_id));
+		setTimeout(() => {
+			dispatch(axiosContentDetail(board_id));
+		}, 100);
 	}, []);
 
 	const onDelete = (): void => {
-		dispatch(axiosContentDetailDelete(authorization, LoginType, board_id));
+		dispatch(axiosContentDetailDelete(board_id));
 		history.push('/board');
 		alert('해당 게시글이 삭제 되었습니다.');
 	};

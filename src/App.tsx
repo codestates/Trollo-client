@@ -3,7 +3,6 @@ import { Global, ThemeProvider } from '@emotion/react';
 import GlobalStyle from './styles/GlobalStyel';
 import Theme from './styles/Theme';
 import Login from './pages/LogIn/LogIn';
-import Register from './pages/LogIn/Register';
 import Board from './pages/Board/index';
 import Content from './pages/Content/index';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -22,9 +21,8 @@ const App = (): JSX.Element => {
 		if (userInfo) {
 			axios.defaults.headers.common['authorization'] = `Bearer ${userInfo.accessToken}`;
 			axios.defaults.headers.common['LoginType'] = userInfo.LoginType;
+			dispatch(getLoginInfoSuccess(userInfo));
 		}
-
-		dispatch(getLoginInfoSuccess(userInfo));
 
 		window.localStorage.removeItem('userInfo');
 	}, []);
@@ -39,7 +37,6 @@ const App = (): JSX.Element => {
 			<Switch>
 				<Redirect exact path="/" to="/login" />
 				<Route path="/login" component={Login} />
-				<Route path="/register" component={Register} />
 				<Route exact path="/board" component={Board} />
 				<Route path="/board/:id" component={Content} />
 				<Route path="/workspace" component={Worksapce} />

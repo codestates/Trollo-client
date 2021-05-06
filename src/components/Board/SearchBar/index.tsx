@@ -15,7 +15,7 @@ import {
 import { FiSearch } from 'react-icons/fi';
 
 const SearchBar = (): JSX.Element => {
-	const [title, onChangeTitle] = useInput<string>('');
+	const [title, onChangeTitle, setTitle] = useInput<string>('');
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const onUploadModal = () => {
@@ -24,6 +24,9 @@ const SearchBar = (): JSX.Element => {
 
 	const onChangeSearch = (e: ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log(onChangeTitle);
+
+		setTitle('');
 	};
 
 	return (

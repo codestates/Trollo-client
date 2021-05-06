@@ -1,9 +1,11 @@
 import React, { useEffect, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import Logo from '../../images/logo.png';
+import Loginbackground from '../../images/Loginbackground.png';
 import { useDispatch } from 'react-redux';
 import {
+	Background,
 	Button,
 	Form,
 	GithubLogin,
@@ -25,27 +27,23 @@ import axios from 'axios';
 import { axiosLoginInfo } from '../../reducer/accessToken';
 
 const LogIn = (): JSX.Element => {
-	// 'https://accounts.google.com/o/oauth2/auth?client_id=1026659521874-edp0dknss2j85jk6kjun2pne9mi3ik86.apps.googleusercontent.com&redirect_uri=http://trollo.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&access_type=offline'
-	const [email, onChangeEmail] = useInput<string>('');
+	const [email, onChangeEmail, setEmail] = useInput<string>('');
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const GITHUB_LOGIN_URL =
-		'https://github.com/login/oauth/authorize?client_id=acbcbe5ecc30788ce836';
-	const GOOGLE_LOGIN_URL =
-		'https://accounts.google.com/o/oauth2/auth?client_id=1026659521874-edp0dknss2j85jk6kjun2pne9mi3ik86.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&access_type=offline';
 
 	const onLoginMail = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 		axios.post(`${process.env.REACT_APP_SERVER_URL}/mail`, { email });
 		alert('해당 메일에 인증번호가 전송되었습니다.');
+		setEmail('');
 	};
 
 	const onGithubLogin = () => {
-		window.location.assign(GITHUB_LOGIN_URL);
+		window.location.assign(`${process.env.REACT_APP_GITHUB_URL}`);
 	};
 
 	const onGoogleLogin = () => {
-		window.location.assign(GOOGLE_LOGIN_URL);
+		window.location.assign(`${process.env.REACT_APP_GOOGLE_URL}`);
 	};
 
 	useEffect(() => {
@@ -68,39 +66,44 @@ const LogIn = (): JSX.Element => {
 	}, []);
 
 	return (
-		<PageContainer>
-			<LoginContainer>
-				<LogoImg src={Logo} />
-				<Form onSubmit={onLoginMail}>
-					<Label>
-						<span>Email address</span>
-						<div>
-							<Input type="email" id="email" name="email" value={email} onChange={onChangeEmail} />
-						</div>
-					</Label>
-					<Button type="submit">Login</Button>
-				</Form>
-				<LoginOrRegister>
-					아직 회원이 아니신가요?&nbsp;
-					<Link to="/Register">회원가입 하러 가기</Link>
-				</LoginOrRegister>
-			</LoginContainer>
-			<OAuthContainer>
-				<WithOAuth>
-					<Line />
-					<Or>OR</Or>
-					<Line />
-				</WithOAuth>
-				<GoogleLogin onClick={onGoogleLogin}>
-					<FcGoogle />
-					&nbsp; Google
-				</GoogleLogin>
-				<GithubLogin onClick={onGithubLogin}>
-					<IoLogoGithub />
-					&nbsp; Github
-				</GithubLogin>
-			</OAuthContainer>
-		</PageContainer>
+		<Background style={{ backgroundImage: `url(${Loginbackground})` }}>
+			<PageContainer>
+				<LoginContainer>
+					<LogoImg src={Logo} />
+					<Form onSubmit={onLoginMail}>
+						<Label>
+							<span>Email address</span>
+							<div>
+								<Input
+									type="email"
+									id="email"
+									name="email"
+									value={email}
+									onChange={onChangeEmail}
+								/>
+							</div>
+						</Label>
+						<Button type="submit">Login</Button>
+					</Form>
+					<LoginOrRegister>해당 이메일로 로그인 코드가 전송됩니다</LoginOrRegister>
+				</LoginContainer>
+				<OAuthContainer>
+					<WithOAuth>
+						<Line />
+						<Or>OR</Or>
+						<Line />
+					</WithOAuth>
+					<GoogleLogin onClick={onGoogleLogin}>
+						<FcGoogle />
+						&nbsp; Google
+					</GoogleLogin>
+					<GithubLogin onClick={onGithubLogin}>
+						<IoLogoGithub />
+						&nbsp; Github
+					</GithubLogin>
+				</OAuthContainer>
+			</PageContainer>
+		</Background>
 	);
 };
 

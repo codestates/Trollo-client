@@ -12,9 +12,8 @@ import {
 	ModalInput,
 	ModalTitle,
 } from './styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { axiosAddContent } from '../../../reducer/board';
-import { getLoginInfoSelector } from '../../../reducer/accessToken';
 
 interface Props {
 	showModal: boolean;
@@ -23,8 +22,7 @@ interface Props {
 
 const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
 	const dispatch = useDispatch();
-	const userAccessToken = useSelector(getLoginInfoSelector);
-	const [title, onChangeTitle] = useInput<string>('');
+	const [title, onChangeTitle, setTitle] = useInput<string>('');
 
 	const onCloseModal = useCallback(() => {
 		setShowModal(false);
@@ -37,11 +35,9 @@ const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
 			return;
 		}
 
-		const authorization = `Bearer ${userAccessToken.accessToken}`;
-		const LoginType = userAccessToken.LoginType;
-
-		dispatch(axiosAddContent(title, authorization, LoginType));
+		dispatch(axiosAddContent(title));
 		setShowModal(false);
+		setTitle('');
 	};
 
 	return (

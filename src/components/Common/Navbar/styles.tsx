@@ -24,7 +24,7 @@ export const ProfileImg = styled.img`
 `;
 
 export const LogoutButton = styled.div`
-	margin-top: 4px;
+	margin-top: 8px;
 	text-decoration: none;
 	&:hover {
 		cursor: pointer;
@@ -32,10 +32,13 @@ export const LogoutButton = styled.div`
 	}
 `;
 
+export const HeaderRouting = styled.span``;
+
 export const BoardOrWorkspace = styled.div`
 	margin-top: 2px;
 	color: #2a3856;
 	font-weight: bold;
+	cursor: pointer;
 `;
 
 export const Divider = styled.span`

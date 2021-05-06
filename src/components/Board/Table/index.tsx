@@ -1,34 +1,24 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from './DataTable';
-import { getLoginInfoSelector } from '../../../reducer/accessToken';
 import { axiosBoardContents, getContentsData } from '../../../reducer/board';
 import { TableContainer, BoardNotice, TableListTitle } from './styles';
 
 const Table = (): JSX.Element => {
 	const contents = useSelector(getContentsData);
-	const userAccessToken = useSelector(getLoginInfoSelector);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const authorization = `Bearer ${userAccessToken.accessToken}`;
-		const LoginType = userAccessToken.LoginType;
-		dispatch(axiosBoardContents(authorization, LoginType));
+		setTimeout(() => {
+			dispatch(axiosBoardContents());
+		}, 1);
 	}, []);
 
 	const columns = useMemo(
 		() => [
 			{
 				accessor: 'writer',
-				Header: '작성자',
-			},
-			{
-				accessor: 'title',
-				Header: '제목',
-			},
-			{
-				accessor: 'createdAt',
-				Header: '등록일',
+				Header: '',
 			},
 		],
 		[],
