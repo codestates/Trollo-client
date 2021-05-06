@@ -25,6 +25,7 @@ import { getLoginInfoSelector } from '../../reducer/accessToken';
 import FakeBoard from '../../images/FakeBoard.png';
 import Comment from '../Comment';
 import DragAndDropArea from '../Workspace/DragAndDropArea';
+import ViewWorkspace from '../Workspace/ViewWorkspace';
 // interface Props {
 //     match: number,
 // }
@@ -75,7 +76,7 @@ const BoardDetail = (): JSX.Element => {
 				</UpdataButton>
 			) : null}
 			<ContentMainBoard>
-				<DragAndDropArea />
+				<ViewWorkspace taskData={contentData.content} />
 			</ContentMainBoard>
 			<Comment commentAll={contentData.commentAll} />
 		</Container>

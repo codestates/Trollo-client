@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const TaskContainer = styled.div`
 	overflow-y: auto;
 	width: 100%;
 	min-height: 250px;

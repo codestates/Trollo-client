@@ -3,7 +3,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { taskSelector } from '../../../reducer/workspace';
 import { TaskListData } from '../DragAndDropArea';
-import { Container, TaskItemContainer } from './styles';
+import { TaskContainer, TaskItemContainer } from './styles';
 
 interface Props {
 	taskList: TaskListData;
@@ -24,7 +24,7 @@ const TaskItem = ({ taskList, listIndex, setShowTaskSetting, setTaskName }: Prop
 	return (
 		<Droppable droppableId={`TaskItem-${listIndex}`} type="TaskItem">
 			{provided => (
-				<Container ref={provided.innerRef}>
+				<TaskContainer ref={provided.innerRef}>
 					{taskList.tasks.map((task, itemIndex) => (
 						<Draggable key={task} draggableId={String(task)} index={itemIndex}>
 							{provided => (
@@ -40,7 +40,7 @@ const TaskItem = ({ taskList, listIndex, setShowTaskSetting, setTaskName }: Prop
 						</Draggable>
 					))}
 					{provided.placeholder}
-				</Container>
+				</TaskContainer>
 			)}
 		</Droppable>
 	);

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const TaskListContainer = styled.div`
 	overflow: hidden;
 	position: relative;
 	min-width: 300px;
