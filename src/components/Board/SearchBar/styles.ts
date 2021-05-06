@@ -20,6 +20,10 @@ export const Upload = styled.button`
 	background: #0065ff;
 	font-weight: 500;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+	&: hover {
+		background: #097eff;
+	}
 `;
 
 export const SearchSelectBox = styled.div`

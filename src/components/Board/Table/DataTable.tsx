@@ -4,7 +4,17 @@ import { getContentsData } from '../../../reducer/board';
 import { useSelector } from 'react-redux';
 import { BoardContent } from '../../../type/type';
 import { useHistory } from 'react-router';
-import { Table, TableHeaderWrapper, TableRow, TableBody, TableHeader } from './styles';
+import {
+	Table,
+	TableHeaderWrapper,
+	TableRow,
+	TableBody,
+	TableHeader,
+	TableColumnUser,
+	TableColumnTitle,
+	TableColumnDate,
+	TableTitle,
+} from './styles';
 // import SearchBar from '../SearchBar';
 
 interface DataTable {
@@ -38,9 +48,9 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 					{headerGroups.map((headerGroup, index: number) => (
 						<TableHeader {...headerGroup.getHeaderGroupProps()} key={index}>
 							{headerGroup.headers.map((column, index: number) => (
-								<th {...column.getHeaderProps()} key={index}>
+								<TableTitle {...column.getHeaderProps()} key={index}>
 									{column.render('Header')}
-								</th>
+								</TableTitle>
 							))}
 						</TableHeader>
 					))}
@@ -50,9 +60,9 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 						prepareRow(row);
 						return (
 							<TableRow {...row.getRowProps()} key={index} onClick={() => onBoardDetail(index)}>
-								<td>{contents[index].writer.split('@')[0]}</td>
-								<td>{contents[index].title}</td>
-								<td>{contents[index].createdAt.split('T')[0]}</td>
+								<TableColumnUser>{contents[index].writer.split('@')[0]}</TableColumnUser>
+								<TableColumnTitle>{contents[index].title}</TableColumnTitle>
+								<TableColumnDate>{contents[index].createdAt.split('T')[0]}</TableColumnDate>
 							</TableRow>
 						);
 					})}

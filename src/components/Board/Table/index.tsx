@@ -20,15 +20,7 @@ const Table = (): JSX.Element => {
 		() => [
 			{
 				accessor: 'writer',
-				Header: '작성자',
-			},
-			{
-				accessor: 'title',
-				Header: '제목',
-			},
-			{
-				accessor: 'createdAt',
-				Header: '등록일',
+				Header: '',
 			},
 		],
 		[],

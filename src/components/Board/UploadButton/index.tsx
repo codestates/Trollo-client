@@ -24,7 +24,7 @@ interface Props {
 const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
 	const dispatch = useDispatch();
 	const userAccessToken = useSelector(getLoginInfoSelector);
-	const [title, onChangeTitle] = useInput<string>('');
+	const [title, onChangeTitle, setTitle] = useInput<string>('');
 
 	const onCloseModal = useCallback(() => {
 		setShowModal(false);
@@ -42,6 +42,7 @@ const UploadButton = ({ showModal, setShowModal }: Props): JSX.Element => {
 
 		dispatch(axiosAddContent(title, authorization, LoginType));
 		setShowModal(false);
+		setTitle('');
 	};
 
 	return (

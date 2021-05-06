@@ -1,9 +1,11 @@
-import React, { useState, MouseEventHandler, CSSProperties } from 'react';
-import { ImgWrapper, SlickWrapper } from './styles';
-import { default as Slider, Settings } from 'react-slick';
+import React, { MouseEventHandler, CSSProperties } from 'react';
+import { ImgWrapper, SlickWrapper, TaskGIF } from './styles';
+import { default as Slider } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Test from '../../../images/test.png';
+import carousel3 from '../../../images/carousel3.png';
+import carousel5 from '../../../images/carousel5.png';
+import TeskTest from '../../../images/TaskTest.gif';
 
 const NextArrow = (props: {
 	className?: string;
@@ -47,8 +49,7 @@ const PrevArrow = (props: {
 };
 
 const Carousel = (): JSX.Element => {
-	const [currentSlide, setCurrentSlide] = useState(0);
-	const defaultSettings: Settings = {
+	const Settings = {
 		slide: 'div',
 		arrows: true,
 		dots: true,
@@ -58,7 +59,7 @@ const Carousel = (): JSX.Element => {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		speed: 500,
-		autoplaySpeed: 3000,
+		autoplaySpeed: 4000,
 		nextArrow: <NextArrow />,
 		prevArrow: <PrevArrow />,
 	};
@@ -66,12 +67,13 @@ const Carousel = (): JSX.Element => {
 	return (
 		<>
 			<SlickWrapper>
-				<Slider {...defaultSettings} beforeChange={slide => setCurrentSlide(slide)}>
+				<Slider {...Settings}>
 					<ImgWrapper>
-						<img src={Test} />
+						<img src={carousel3} />
 					</ImgWrapper>
 					<ImgWrapper>
-						<img src={Test} />
+						<TaskGIF src={TeskTest} />
+						<img src={carousel5} />
 					</ImgWrapper>
 				</Slider>
 			</SlickWrapper>
