@@ -14,10 +14,6 @@ import {
 } from './styles';
 import { FiSearch } from 'react-icons/fi';
 
-// interface Props {
-// 	onSubmit: any;
-// }
-
 const SearchBar = (): JSX.Element => {
 	const [title, onChangeTitle] = useInput<string>('');
 	const [showModal, setShowModal] = useState<boolean>(false);
@@ -27,7 +23,6 @@ const SearchBar = (): JSX.Element => {
 	};
 
 	const onChangeSearch = (e: ChangeEvent<HTMLFormElement>) => {
-		//TODO: 로직 생각중..
 		e.preventDefault();
 	};
 

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { BoardContent } from '../../../type/type';
 import { useHistory } from 'react-router';
 import { Table, TableHeaderWrapper, TableRow, TableBody, TableHeader } from './styles';
-// import SearchBar from '../SearchBar';
 
 interface DataTable {
 	accessor: string;
@@ -26,13 +25,12 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 		usePagination,
 	);
 
-	const onBoardDetail = (index: number): any => {
+	const onBoardDetail = (index: number): void => {
 		history.push(`/board/${contents[index].id}`);
 	};
 
 	return (
 		<>
-			{/* <SearchBar onSubmit= /> */}
 			<Table {...getTableProps()}>
 				<TableHeaderWrapper>
 					{headerGroups.map((headerGroup, index: number) => (
@@ -63,11 +61,3 @@ const DataTable = ({ columns, data }: Props): JSX.Element => {
 };
 
 export default DataTable;
-
-{
-	/* {row.cells.map((cell, index: number) => (
-	<td {...cell.getCellProps()} key={index}>
-		{cell.render('Cell')}
-	</td>
-))} */
-}

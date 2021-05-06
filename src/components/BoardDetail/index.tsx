@@ -11,7 +11,6 @@ import {
 	Container,
 	ContentCreatedAt,
 	ContentDelete,
-	ContentView,
 	ContentWrapper,
 	ContentWriter,
 	ContentTitle,
