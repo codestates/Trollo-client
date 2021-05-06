@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { taskSelector } from '../../../reducer/workspace';
 import { TaskData } from '../../../type/type';
 import { DragAndDropContainer, WorksapceContainer } from '../DragAndDropArea/styles';
 import { TaskItemContainer, TaskContainer } from '../TaskItem/styles';
@@ -11,7 +9,6 @@ interface Props {
 }
 
 const ViewWorkspace = ({ taskData }: Props): JSX.Element => {
-	console.log('view!!!!!!!', taskData);
 	return (
 		<WorksapceContainer>
 			<DragAndDropContainer>

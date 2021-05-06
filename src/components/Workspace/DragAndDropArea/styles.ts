@@ -14,11 +14,7 @@ export const DragAndDropContainer = styled.div`
 	height: calc(100vh - 56px);
 	padding: 40px;
 
-	background: linear-gradient(
-		to right,
-		#be93c5,
-		#7bc6cc
-	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, #be93c5, #7bc6cc);
 `;
 
 export const AddTaskListBtn = styled.div`

@@ -25,7 +25,6 @@ import {
 
 export interface TaskListData {
 	title: string;
-	color: string;
 	tasks: string[];
 }
 export interface TaskItemData {
@@ -67,14 +66,13 @@ const DragAndDropArea = (): JSX.Element => {
 
 	const onDragEnd = useCallback(
 		(result: DropResult): void => {
-			console.log(result);
-			const { type, source, destination, draggableId } = result;
+			const { type, source, destination } = result;
 			if (!destination) {
 				return;
 			}
 
 			if (type === 'TaskList') {
-				if (destination.droppableId === 'Trash') {
+				if (destination.droppableId === 'test') {
 					dispatch(deleteTaskList(source.index));
 				} else {
 					dispatch(reorderTaskList({ startIndex: source.index, endIndex: destination.index }));
@@ -140,9 +138,9 @@ const DragAndDropArea = (): JSX.Element => {
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="TaskList" type="TaskList" direction="horizontal">
 					{provided => (
-						<DragAndDropContainer ref={provided.innerRef}>
+						<DragAndDropContainer>
 							{isLoadDataSuccess ? (
-								<div style={{ display: 'flex' }}>
+								<div style={{ display: 'flex', alignItems: 'flex-start' }} ref={provided.innerRef}>
 									{taskInitalData.taskList.map((list, index) => (
 										<TaskList
 											key={`TaskList-${index}`}
@@ -153,6 +151,7 @@ const DragAndDropArea = (): JSX.Element => {
 											setTaskName={setTaskName}
 										/>
 									))}
+									{provided.placeholder}
 									{addBtnChangeForm ? (
 										<AddTaskListTitleInput
 											placeholder="Title"
@@ -167,7 +166,7 @@ const DragAndDropArea = (): JSX.Element => {
 											+ Add TaskList
 										</AddTaskListBtn>
 									)}
-									<Droppable droppableId="Trash" type="TaskList">
+									<Droppable droppableId="test" type="TaskList">
 										{provided => (
 											<Trash ref={provided.innerRef}>
 												<TrashIcon />
@@ -178,7 +177,6 @@ const DragAndDropArea = (): JSX.Element => {
 							) : (
 								<Loading>Loading...</Loading>
 							)}
-							{provided.placeholder}
 						</DragAndDropContainer>
 					)}
 				</Droppable>
